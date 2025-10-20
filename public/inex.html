@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumeCraft Pro - Build Professional Resumes in Minutes</title>
+    <title>ResumeRocket - Launch Your Career Journey</title>
     <style>
         * {
             margin: 0;
@@ -15,10 +15,10 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #fff;
         }
 
-        .container 
+        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
@@ -26,99 +26,146 @@
 
         /* Header */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: bold;
-            color: #4f46e5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .nav-links a {
             text-decoration: none;
             color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
         }
 
         .nav-links a:hover {
-            color: #4f46e5;
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #667eea;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .cta-button {
-            background: #4f46e5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 0.9rem 2rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .cta-button:hover {
-            background: #4338ca;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
         }
 
-        /* Hero Section */
+        /* Enhanced Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%),
+                        url('https://cdn.pixabay.com/photo/2024/05/15/10/18/women-8080878_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: white;
-            text-align: center;
             padding-top: 80px;
+            text-align: center;
+            position: relative;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
         }
 
-        .hero-content p {
-            font-size: 1.3rem;
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero .motivation {
+            font-size: 1.5rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            font-style: italic;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .hero-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: 3rem;
         }
 
         .btn-secondary {
             background: transparent;
             color: white;
             border: 2px solid white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -127,7 +174,32 @@
 
         .btn-secondary:hover {
             background: white;
-            color: #4f46e5;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        /* Motivation Section */
+        .motivation-section {
+            padding: 5rem 0;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .quote {
+            font-size: 2rem;
+            font-style: italic;
+            color: #2d3748;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+
+        .author {
+            font-size: 1.2rem;
+            color: #667eea;
+            font-weight: 600;
         }
 
         /* Features Section */
@@ -138,92 +210,133 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #1f2937;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 4rem;
+            color: #718096;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .feature-card {
-            background: #f8fafc;
-            padding: 2rem;
-            border-radius: 12px;
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
             border: 1px solid #e2e8f0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #4f46e5;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 2.2rem;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 1rem;
-            color: #1f2937;
+            color: #2d3748;
+        }
+
+        .feature-card p {
+            color: #718096;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
             color: white;
-            padding: 5rem 0;
+            padding: 6rem 0;
             text-align: center;
         }
 
         .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
-        .cta-section p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+        .cta-section .motivation {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
             opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
 
         /* Footer */
         footer {
-            background: #1f2937;
+            background: #1a202c;
             color: white;
-            padding: 3rem 0 2rem;
+            padding: 4rem 0 2rem;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #4f46e5;
+            margin-bottom: 1.5rem;
+            color: #667eea;
+            font-size: 1.4rem;
+        }
+
+        .footer-section p {
+            color: #cbd5e0;
+            line-height: 1.6;
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #374151;
-            color: #9ca3af;
+            padding-top: 3rem;
+            border-top: 1px solid #2d3748;
+            color: #a0aec0;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.5rem;
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero .motivation {
+                font-size: 1.2rem;
             }
             
             .nav-links {
@@ -234,6 +347,14 @@
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .quote {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
         }
     </style>
 </head>
@@ -241,14 +362,14 @@
     <!-- Header -->
     <header>
         <nav class="container">
-            <div class="logo">ResumeCraft Pro</div>
+            <div class="logo">ResumeRocket</div>
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
-                <li><a href="#templates">Templates</a></li>
-                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#motivation">Inspiration</a></li>
+                <li><a href="#start-building">Get Started</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <a href="#start-building" class="cta-button">Start Building</a>
+            <a href="#start-building" class="cta-button">Launch Your Career</a>
         </nav>
     </header>
 
@@ -256,40 +377,49 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Craft Your Perfect Resume in Minutes</h1>
-                <p>AI-powered resume builder that helps you land your dream job. Professional templates, instant formatting, and expert tips.</p>
+                <h1>Your Dream Career Starts Here</h1>
+                <p class="motivation">"The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt</p>
                 <div class="hero-buttons">
-                    <a href="#start-building" class="cta-button">Build Your Resume Free</a>
-                    <a href="#templates" class="btn-secondary">View Templates</a>
+                    <a href="#start-building" class="cta-button">Create Your Resume</a>
+                    <a href="#features" class="btn-secondary">See How It Works</a>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Motivation Section -->
+    <section id="motivation" class="motivation-section">
+        <div class="container">
+            <p class="quote">"Don't be afraid to give up the good to go for the great. Your perfect resume is the first step toward your great career."</p>
+            <p class="author">- John D. Rockefeller</p>
         </div>
     </section>
 
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
-            <h2 class="section-title">Why Choose ResumeCraft Pro</h2>
+            <h2 class="section-title">Designed for Success</h2>
+            <p class="section-subtitle">Everything you need to stand out in today's competitive job market</p>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🚀</div>
-                    <h3>AI-Powered Builder</h3>
-                    <p>Smart suggestions and auto-formatting to create professional resumes effortlessly.</p>
+                    <h3>AI-Powered Excellence</h3>
+                    <p>Smart technology that helps you highlight your strengths and achievements professionally.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">💼</div>
-                    <h3>Professional Templates</h3>
-                    <p>Choose from 50+ ATS-friendly templates designed by HR experts.</p>
+                    <h3>Industry-Proven Templates</h3>
+                    <p>50+ templates designed with input from top recruiters and hiring managers.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
-                    <h3>Real-time Analytics</h3>
-                    <p>Get instant feedback on your resume's strength and improvement areas.</p>
+                    <h3>Success Analytics</h3>
+                    <p>Get real-time feedback on how to improve your resume for better results.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure & Private</h3>
-                    <p>Your data is encrypted and never shared with third parties.</p>
+                    <div class="feature-icon">🌟</div>
+                    <h3>Career Guidance</h3>
+                    <p>Expert tips and motivational guidance to keep you inspired throughout your job search.</p>
                 </div>
             </div>
         </div>
@@ -298,34 +428,35 @@
     <!-- CTA Section -->
     <section id="start-building" class="cta-section">
         <div class="container">
-            <h2>Ready to Transform Your Career?</h2>
-            <p>Join thousands of professionals who landed their dream jobs with ResumeCraft Pro</p>
-            <a href="#signup" class="cta-button" style="background: white; color: #4f46e5;">Start Free Trial</a>
+            <h2>Ready to Launch Your Journey?</h2>
+            <p class="motivation">"The only way to do great work is to love what you do. Let us help you find that perfect opportunity."</p>
+            <a href="#signup" class="cta-button">Start Your Free Trial</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>ResumeCraft Pro</h3>
-                    <p>Building better careers through innovative resume technology.</p>
+                    <h3>ResumeRocket</h3>
+                    <p>Helping professionals launch their dream careers through powerful resume technology and continuous motivation.</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <p><a href="#features" style="color: #9ca3af; text-decoration: none;">Features</a></p>
-                    <p><a href="#templates" style="color: #9ca3af; text-decoration: none;">Templates</a></p>
-                    <p><a href="#pricing" style="color: #9ca3af; text-decoration: none;">Pricing</a></p>
+                    <h3>Get Inspired</h3>
+                    <p>Career Tips</p>
+                    <p>Success Stories</p>
+                    <p>Motivational Resources</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>Email: hello@resumecraft.pro</p>
-                    <p>Support: support@resumecraft.pro</p>
+                    <h3>Contact Us</h3>
+                    <p>Email: hello@resumerocket.tech</p>
+                    <p>Support: support@resumerocket.tech</p>
+                    <p>Career Advice: guidance@resumerocket.tech</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 ResumeCraft Pro. All rights reserved. | Built by Md Farooq</p>
+                <p>&copy; 2024 ResumeRocket. All rights reserved. | Built with ❤️ by Md Farooq</p>
             </div>
         </div>
     </footer>
@@ -350,12 +481,35 @@
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
                 header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
             } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'rgba(255, 255, 255, 0.97)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
             }
         });
+
+        // Motivational messages array
+        const motivations = [
+            "Your time is limited, don't waste it living someone else's life. - Steve Jobs",
+            "The only way to do great work is to love what you do. - Steve Jobs",
+            "Don't be afraid to give up the good to go for the great. - John D. Rockefeller",
+            "Believe you can and you're halfway there. - Theodore Roosevelt",
+            "The future depends on what you do today. - Mahatma Gandhi"
+        ];
+
+        // Change motivation text periodically
+        let currentMotivation = 0;
+        setInterval(() => {
+            const motivationElement = document.querySelector('.hero .motivation');
+            if (motivationElement) {
+                motivationElement.style.opacity = '0';
+                setTimeout(() => {
+                    motivationElement.textContent = `"${motivations[currentMotivation]}"`;
+                    motivationElement.style.opacity = '1';
+                    currentMotivation = (currentMotivation + 1) % motivations.length;
+                }, 500);
+            }
+        }, 5000);
     </script>
 </body>
 </html>
