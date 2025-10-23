@@ -430,7 +430,7 @@
         <div class="container">
             <h2>Ready to Launch Your Journey?</h2>
             <p class="motivation">"The only way to do great work is to love what you do. Let us help you find that perfect opportunity."</p>
-            <a href="#signup" class="cta-button">Start Your Free Trial</a>
+            <button onclick="showAuthModal()" class="cta-button" style="cursor: pointer;">Start Your Free Trial</button>
         </div>
     </section>
 
@@ -510,6 +510,98 @@
                 }, 500);
             }
         }, 5000);
-    </script>
-</body>
+    </script> 
+</body><!-- Auth Modal -->
+<div id="authModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; backdrop-filter: blur(5px);">
+    <div style="background: white; padding: 40px; border-radius: 15px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        <h3 style="text-align: center; margin-bottom: 25px; color: #333; font-size: 1.5rem;">Create Your Account</h3>
+        
+        <input type="email" id="authEmail" placeholder="Enter your email" style="display: block; width: 100%; margin: 15px 0; padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+        
+        <input type="password" id="authPassword" placeholder="Create password" style="display: block; width: 100%; margin: 15px 0; padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+        
+        <button onclick="handleSignup()" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 10px;">
+            Create Account
+        </button>
+        
+        <p style="text-align: center; margin-top: 20px; color: #666;">
+            Already have an account? <a href="#login" style="color: #007bff; text-decoration: none;">Login</a>
+        </p>
+        
+        <button onclick="hideAuthModal()" style="width: 100%; padding: 12px; background: #6c757d; color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-top: 10px;">
+            Cancel
+        </button>
+    </div>
+</div>
+
+<script>
+// Show authentication modal
+function showAuthModal() {
+    document.getElementById('authModal').style.display = 'block';
+}
+
+// Hide authentication modal
+function hideAuthModal() {
+    document.getElementById('authModal').style.display = 'none';
+    // Clear input fields
+    document.getElementById('authEmail').value = '';
+    document.getElementById('authPassword').value = '';
+}
+
+// Handle signup process
+function handleSignup() {
+    const email = document.getElementById('authEmail').value;
+    const password = document.getElementById('authPassword').value;
+    
+    if(!email || !password) {
+        alert('Please enter both email and password');
+        return;
+    }
+    
+    // Simple email validation
+    if(!email.includes('@') || !email.includes('.')) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Show loading state
+    const button = document.querySelector('#authModal button[onclick="handleSignup()"]');
+    const originalText = button.textContent;
+    button.textContent = 'Creating Account...';
+    button.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        // Store user data temporarily
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userLoggedIn', 'true');
+        
+        // Show success message
+        alert('🎉 Account created successfully! Welcome to ResumeRocket!');
+        
+        // Hide modal
+        hideAuthModal();
+        
+        // Reset button
+        button.textContent = originalText;
+        button.disabled = false;
+        
+        // For now, just show success - we'll add builder page later
+    }, 1500);
+}
+
+// Close modal when clicking outside
+document.getElementById('authModal').addEventListener('click', function(e) {
+    if(e.target.id === 'authModal') {
+        hideAuthModal();
+    }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', function(e) {
+    if(e.key === 'Escape') {
+        hideAuthModal();
+    }
+});
+</script>
 </html>
