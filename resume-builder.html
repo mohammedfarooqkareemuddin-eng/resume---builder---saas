@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeRocket - Professional Resume Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: #f8fafc;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form Styles */
+        .form-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+            margin-left: 1rem;
+        }
+
+        /* Preview Styles */
+        .preview-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 800px;
+        }
+
+        .resume-preview {
+            background: white;
+            padding: 2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 5px;
+            min-height: 700px;
+        }
+
+        .resume-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .resume-header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-header .title {
+            font-size: 1.3rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            color: #718096;
+        }
+
+        .resume-section {
+            margin-bottom: 2rem;
+        }
+
+        .resume-section h2 {
+            color: #2d3748;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: between;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-title {
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .item-date {
+            color: #718096;
+        }
+
+        .item-subtitle {
+            color: #667eea;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .template-selector {
+            margin-bottom: 2rem;
+        }
+
+        .template-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .template-option {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            flex: 1;
+        }
+
+        .template-option:hover {
+            border-color: #667eea;
+        }
+
+        .template-option.active {
+            border-color: #667eea;
+            background: #f7fafc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">ResumeRocket</div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Input Form -->
+            <div class="form-section">
+                <h2>Build Your Resume</h2>
+                
+                <div class="template-selector">
+                    <label>Choose Template:</label>
+                    <div class="template-options">
+                        <div class="template-option active" data-template="professional">Professional</div>
+                        <div class="template-option" data-template="modern">Modern</div>
+                        <div class="template-option" data-template="creative">Creative</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="jobTitle">Professional Title</label>
+                    <input type="text" id="jobTitle" placeholder="Software Engineer">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="john@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" placeholder="City, Country">
+                </div>
+
+                <div class="form-group">
+                    <label for="summary">Professional Summary</label>
+                    <textarea id="summary" placeholder="Experienced professional with..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Work Experience</label>
+                    <textarea id="experience" placeholder="• Senior Developer at ABC Corp (2020-2023)&#10;• Junior Developer at XYZ Inc (2018-2020)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="education">Education</label>
+                    <textarea id="education" placeholder="• B.S. Computer Science - University Name (2014-2018)&#10;• High School Diploma - School Name (2010-2014)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="skills">Skills (comma separated)</label>
+                    <input type="text" id="skills" placeholder="JavaScript, React, Node.js, Python">
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn" onclick="updatePreview()">Update Preview</button>
+                    <button class="btn btn-secondary" onclick="downloadPDF()">Download PDF</button>
+                </div>
+            </div>
+
+            <!-- Resume Preview -->
+            <div class="preview-section">
+                <h2>Live Preview</h2>
+                <div class="resume-preview" id="resumePreview">
+                    <div class="resume-header">
+                        <h1>Your Name</h1>
+                        <div class="title">Professional Title</div>
+                        <div class="contact-info">
+                            <div class="contact-item">email@example.com</div>
+                            <div class="contact-item">+1 (555) 123-4567</div>
+                            <div class="contact-item">City, Country</div>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <h2>Professional Summary</h2>
+                        <p>Your professional summary will appear here.</p>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <h2>Work Experience</h2>
+                        <p>Your work experience will appear here.</p>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <h2>Education</h2>
+                        <p>Your education details will appear here.</p>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <h2>Skills</h2>
+                        <div class="skills-list">
+                            <span class="skill-tag">Your Skills</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update resume preview
+        function updatePreview() {
+            const name = document.getElementById('fullName').value || 'Your Name';
+       ó
+ç     const title = document.getElementById('jobTitle').value || 'Professional Title';
+            const email = document.getElementById('email').value || 'email@example.com';
+            const phone = document.getElementById('phone').value || '+1 (555) 123-4567';
+            const location = document.getElementById('location').value || 'City, Country';
+            const summary = document.getElementById('summary').value || 'Your professional summary will appear here.';
+            const experience = document.getElementById('experience').value || 'Your work experience will appear here.';
+            const education = document.getElementById('education').value || 'Your education details will appear here.';
+            const skills = document.getElementById('skills').value || 'Your Skills';
+
+            // Update header
+            document.querySelector('#resumePreview .resume-header h1').textContent = name;
+            document.querySelector('#resumePreview .resume-header .title').textContent = title;
+            
+            // Update contact info
+            const contactItems = document.querySelectorAll('#resumePreview .contact-item');
+            contactItems[0].textContent = email;
+            contactItems[1].textContent = phone;
+            contactItems[2].textContent = location;
+
+            // Update sections
+            document.querySelector('#resumePreview .resume-section:nth-child(2) p').textContent = summary;
+            document.querySelector('#resumePreview .resume-section:nth-child(3) p').textContent = formatText(experience);
+            document.querySelector('#resumePreview .resume-section:nth-child(4) p').textContent = formatText(education);
+            
+            // Update skills
+            const skillsContainer = document.querySelector('#resumePreview .skills-list');
+            skillsContainer.innerHTML = '';
+            skills.split(',').forEach(skill => {
+                if (skill.trim()) {
+                    const skillTag = document.createElement('span');
+                    skillTag.className = 'skill-tag';
+                    skillTag.textContent = skill.trim();
+                    skillsContainer.appendChild(skillTag);
+                }
+            });
+        }
+
+        // Format text with line breaks
+        function formatText(text) {
+            return text.replace(/\n/g, '<br>');
+        }
+
+        // Download as PDF
+        function downloadPDF() {
+            const element = document.getElementById('resumePreview');
+            const opt = {
+                margin: 10,
+                filename: 'resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Template selection
+        document.querySelectorAll('.template-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.template-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                // Add template switching logic here
+            });
+        });
+
+        // Auto-update preview when typing
+        document.querySelectorAll('input, textarea').forEach(element => {
+            element.addEventListener('input', updatePreview);
+        });
+
+        // Initial preview update
+        updatePreview();
+    </script>
+</body>
+</html>
