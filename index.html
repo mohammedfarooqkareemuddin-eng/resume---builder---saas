@@ -369,7 +369,7 @@
                 <li><a href="#start-building">Get Started</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <a href="#start-building" class="cta-button">Launch Your Career</a>
+            <a href="#start-building" class="cta-button" onclick="showAuthModal()">Launch Your Career</a>
         </nav>
     </header>
 
@@ -380,8 +380,8 @@
                 <h1>Your Dream Career Starts Here</h1>
                 <p class="motivation">"The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt</p>
                 <div class="hero-buttons">
-                    <a href="#start-building" class="cta-button">Create Your Resume</a>
-                    <a href="#features" class="btn-secondary">See How It Works</a>
+                    <a href="#start-building" class="cta-button" onclick="showAuthModal()">Create Your Resume</a>
+                    <a href="#features" class="btn-secondary" onclick="showAuthModal()">See How It Works</a>
                 </div>
             </div>
         </div>
@@ -603,5 +603,143 @@ document.addEventListener('keydown', function(e) {
         hideAuthModal();
     }
 });
+</script> <!-- AUTH MODAL - Resume Rocket -->
+<div id="authModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000;">
+  <div style="background:white; margin:10% auto; padding:30px; border-radius:10px; width:90%; max-width:400px; text-align:center;">
+    <button onclick="hideAuthModal()" style="float:right; background:none; border:none; font-size:20px;">×</button>
+    <h3>Join Resume Rocket 🚀</h3>
+    <input type="email" id="loginEmail" placeholder="Enter your email" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:5px;">
+    <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:5px;">
+    <button onclick="handleLogin()" style="width:100%; padding:12px; background:#007bff; color:white; border:none; border-radius:5px; margin:5px 0;">Login</button>
+    <button onclick="handleGoogleAuth()" style="width:100%; padding:12px; background:#db4437; color:white; border:none; border-radius:5px; margin:3px 0;">Google</button>
+    <button onclick="handleFacebookAuth()" style="width:100%; padding:12px; background:#4267B2; color:white; border:none; border-radius:5px; margin:3px 0;">Facebook</button>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'http://localhost:3000/api';
+
+function showAuthModal() {
+  document.getElementById('authModal').style.display = 'block';
+}
+
+function hideAuthModal() {
+  document.getElementById('authModal').style.display = 'none';
+}
+
+async function handleLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  
+  try {
+    const response = await fetch(API_BASE + '/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, password})
+    });
+    const data = await response.json();
+    alert(data.success ? 'Login successful! 🎉' : 'Login failed');
+    if(data.success) hideAuthModal();
+  } catch(error) {
+    alert('Network error');
+  }
+}
+
+async function handleGoogleAuth() {
+  try {
+    const response = await fetch(API_BASE + '/auth/google', {method: 'POST'});
+    const data = await response.json();
+    alert(data.success ? 'Google auth successful! 🎉' : 'Google auth failed');
+    if(data.success) hideAuthModal();
+  } catch(error) {
+    alert('Google auth failed');
+  }
+}
+
+async function handleFacebookAuth() {
+  try {
+    const response = await fetch(API_BASE + '/auth/facebook', {method: 'POST'});
+    const data = await response.json();
+    alert(data.success ? 'Facebook auth successful! 🎉' : 'Facebook auth failed');
+    if(data.success) hideAuthModal();
+  } catch(error) {
+    alert('Facebook auth failed');
+  }
+}
+
+window.onclick = function(event) {
+  if (event.target == document.getElementById('authModal')) {
+    hideAuthModal();
+  }
+}
+</script><!-- AUTH MODAL - Resume Rocket -->
+<div id="authModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000;">
+  <div style="background:white; margin:10% auto; padding:30px; border-radius:10px; width:90%; max-width:400px; text-align:center;">
+    <button onclick="hideAuthModal()" style="float:right; background:none; border:none; font-size:20px;">×</button>
+    <h3>Join Resume Rocket 🚀</h3>
+    <input type="email" id="loginEmail" placeholder="Enter your email" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:5px;">
+    <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:5px;">
+    <button onclick="handleLogin()" style="width:100%; padding:12px; background:#007bff; color:white; border:none; border-radius:5px; margin:5px 0;">Login</button>
+    <button onclick="handleGoogleAuth()" style="width:100%; padding:12px; background:#db4437; color:white; border:none; border-radius:5px; margin:3px 0;">Google</button>
+    <button onclick="handleFacebookAuth()" style="width:100%; padding:12px; background:#4267B2; color:white; border:none; border-radius:5px; margin:3px 0;">Facebook</button>
+  </div>
+</div>
+
+<script>
+const API_BASE = 'http://localhost:3000/api';
+
+function showAuthModal() {
+  document.getElementById('authModal').style.display = 'block';
+}
+
+function hideAuthModal() {
+  document.getElementById('authModal').style.display = 'none';
+}
+
+async function handleLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  
+  try {
+    const response = await fetch(API_BASE + '/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, password})
+    });
+    const data = await response.json();
+    alert(data.success ? 'Login successful! 🎉' : 'Login failed');
+    if(data.success) hideAuthModal();
+  } catch(error) {
+    alert('Network error');
+  }
+}
+
+async function handleGoogleAuth() {
+  try {
+    const response = await fetch(API_BASE + '/auth/google', {method: 'POST'});
+    const data = await response.json();
+    alert(data.success ? 'Google auth successful! 🎉' : 'Google auth failed');
+    if(data.success) hideAuthModal();
+  } catch(error) {
+    alert('Google auth failed');
+  }
+}
+
+async function handleFacebookAuth() {
+  try {
+    const response = await fetch(API_BASE + '/auth/facebook', {method: 'POST'});
+    const data = await response.json();
+    alert(data.success ? 'Facebook auth successful! 🎉' : 'Facebook auth failed');
+    if(data.success) hideAuthModal();
+  } catch(error) {
+    alert('Facebook auth failed');
+  }
+}
+
+window.onclick = function(event) {
+  if (event.target == document.getElementById('authModal')) {
+    hideAuthModal();
+  }
+}
 </script>
 </html>
