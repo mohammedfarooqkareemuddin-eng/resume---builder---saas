@@ -587,81 +587,77 @@ function handleSignup() {
         button.disabled = false;
         
         // For now, just show success - we'll add builder page later
-    }, 1500);
-</script>
-
-<!-- Features Section -->
-<section id="features" style="padding: 80px 20px; background: #f8f9fa;">
-  <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Professional Resume Templates</h2>
-    <p style="font-size: 1.2rem; color: #666; margin-bottom: 50px;">Choose from our ATS-friendly templates designed to get you hired</p>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-      <!-- Template 1 -->
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-        <h3>Modern Professional</h3>
-        <p>Clean, contemporary design that stands out</p>
-        <button onclick="startResumeBuilder('modern')" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; margin-top: 15px; cursor: pointer;">Use This Template</button>
-      </div>
-      
-      <!-- Template 2 -->
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-        <h3>Executive</h3>
-        <p>For experienced professionals and managers</p>
-        <button onclick="startResumeBuilder('executive')" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; margin-top: 15px; cursor: pointer;">Use This Template</button>
-      </div>
-      
-      <!-- Template 3 -->
-      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-        <h3>Creative</h3>
-        <p>Perfect for designers & creative professionals</p>
-        <button onclick="startResumeBuilder('creative')" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; margin-top: 15px; cursor: pointer;">Use This Template</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- How It Works Section -->
-<section id="how-it-works" style="padding: 80px 20px; background: white;">
-  <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">How It Works</h2>
-    <p style="font-size: 1.2rem; color: #666; margin-bottom: 50px;">Create your perfect resume in 3 simple steps</p>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
-      <div>
-        <div style="background: #007bff; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 20px;">1</div>
-        <h3>Choose Template</h3>
-        <p>Select from professional, ATS-optimized designs</p>
-      </div>
-      
-      <div>
-        <div style="background: #007bff; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 20px;">2</div>
-        <h3>Fill Your Info</h3>
-        <p>Easy form to add your experience and skills</p>
-      </div>
-      
-      <div>
-        <div style="background: #007bff; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 20px;">3</div>
-        <h3>Download PDF</h3>
-        <p>Get your professional resume instantly</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Resume Builder Section -->
-<section id="start-building" style="padding: 80px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
-  <div style="max-width: 800px; margin: 0 auto;">
-    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to Launch Your Career?</h2>
-    <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Create your professional resume now - no sign up required!</p>
-    <button onclick="startResumeBuilder('modern')" style="padding: 15px 40px; background: white; color: #667eea; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">Start Building Your Resume</button>
-  </div>
-</section>
-
-<script>
+ <script>
 function startResumeBuilder(template) {
-  alert('🚀 Launching ' + template + ' resume builder! This will open the resume creation tool.');
-  // Here we'll add the actual resume builder in next step
+  // Hide main page sections
+  document.querySelectorAll('section').forEach(section => {
+    section.style.display = 'none';
+  });
+  
+  // Show resume builder
+  document.getElementById('resume-builder').style.display = 'block';
+}
+
+function generatePDF() {
+  const name = document.getElementById('fullName').value || 'Your Name';
+  const email = document.getElementById('email').value || 'your.email@example.com';
+  const phone = document.getElementById('phone').value || '(123) 456-7890';
+  
+  // Create simple PDF content (in real app, use jsPDF library)
+  const resumeContent = `
+    RESUME
+    Name: ${name}
+    Email: ${email}
+    Phone: ${phone}
+    
+    Created with Resume Rocket
+  `;
+  
+  // Create downloadable file
+  const blob = new Blob([resumeContent], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${name}-resume.txt`;
+  a.click();
+  
+  alert('📄 Resume downloaded! In real version, this would be a beautiful PDF');
 }
 </script>
-</html>
+
+<!-- Add Resume Builder Section -->
+<div id="resume-builder" style="display: none; padding: 40px 20px; max-width: 800px; margin: 0 auto;">
+  <h2>Build Your Resume</h2>
+  
+  <div style="display: grid; gap: 20px;">
+    <div>
+      <h3>Personal Information</h3>
+      <input type="text" id="fullName" placeholder="Full Name" style="width: 100%; padding: 10px; margin: 5px 0;">
+      <input type="email" id="email" placeholder="Email" style="width: 100%; padding: 10px; margin: 5px 0;">
+      <input type="tel" id="phone" placeholder="Phone" style="width: 100%; padding: 10px; margin: 5px 0;">
+    </div>
+    
+    <div>
+      <h3>Work Experience</h3>
+      <textarea placeholder="Describe your work experience..." style="width: 100%; padding: 10px; height: 100px;"></textarea>
+    </div>
+    
+    <div>
+      <h3>Education</h3>
+      <textarea placeholder="Your education background..." style="width: 100%; padding: 10px; height: 80px;"></textarea>
+    </div>
+    
+    <div>
+      <h3>Skills</h3>
+      <input type="text" placeholder="List your skills..." style="width: 100%; padding: 10px;">
+    </div>
+    
+    <button onclick="generatePDF()" style="padding: 15px 30px; background: #007bff; color: white; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer;">
+      Download Your Resume
+    </button>
+    
+    <button onclick="location.reload()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      Back to Home
+    </button>
+  </div>
+</div>   }, 1500);
