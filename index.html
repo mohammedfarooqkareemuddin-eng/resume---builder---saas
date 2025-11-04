@@ -588,158 +588,80 @@ function handleSignup() {
         
         // For now, just show success - we'll add builder page later
     }, 1500);
-}
+</script>
 
-// Close modal when clicking outside
-document.getElementById('authModal').addEventListener('click', function(e) {
-    if(e.target.id === 'authModal') {
-        hideAuthModal();
-    }
-});
-
-// Close modal with ESC key
-document.addEventListener('keydown', function(e) {
-    if(e.key === 'Escape') {
-        hideAuthModal();
-    }
-});
-</script> <!-- AUTH MODAL - Resume Rocket -->
-<div id="authModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000;">
-  <div style="background:white; margin:10% auto; padding:30px; border-radius:10px; width:90%; max-width:400px; text-align:center;">
-    <button onclick="hideAuthModal()" style="float:right; background:none; border:none; font-size:20px;">×</button>
-    <h3>Join Resume Rocket 🚀</h3>
-    <input type="email" id="loginEmail" placeholder="Enter your email" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:5px;">
-    <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:5px;">
-    <button onclick="handleLogin()" style="width:100%; padding:12px; background:#007bff; color:white; border:none; border-radius:5px; margin:5px 0;">Login</button>
-    <button onclick="handleGoogleAuth()" style="width:100%; padding:12px; background:#db4437; color:white; border:none; border-radius:5px; margin:3px 0;">Google</button>
-    <button onclick="handleFacebookAuth()" style="width:100%; padding:12px; background:#4267B2; color:white; border:none; border-radius:5px; margin:3px 0;">Facebook</button>
+<!-- Features Section -->
+<section id="features" style="padding: 80px 20px; background: #f8f9fa;">
+  <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Professional Resume Templates</h2>
+    <p style="font-size: 1.2rem; color: #666; margin-bottom: 50px;">Choose from our ATS-friendly templates designed to get you hired</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+      <!-- Template 1 -->
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h3>Modern Professional</h3>
+        <p>Clean, contemporary design that stands out</p>
+        <button onclick="startResumeBuilder('modern')" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; margin-top: 15px; cursor: pointer;">Use This Template</button>
+      </div>
+      
+      <!-- Template 2 -->
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h3>Executive</h3>
+        <p>For experienced professionals and managers</p>
+        <button onclick="startResumeBuilder('executive')" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; margin-top: 15px; cursor: pointer;">Use This Template</button>
+      </div>
+      
+      <!-- Template 3 -->
+      <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h3>Creative</h3>
+        <p>Perfect for designers & creative professionals</p>
+        <button onclick="startResumeBuilder('creative')" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; margin-top: 15px; cursor: pointer;">Use This Template</button>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" style="padding: 80px 20px; background: white;">
+  <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">How It Works</h2>
+    <p style="font-size: 1.2rem; color: #666; margin-bottom: 50px;">Create your perfect resume in 3 simple steps</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
+      <div>
+        <div style="background: #007bff; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 20px;">1</div>
+        <h3>Choose Template</h3>
+        <p>Select from professional, ATS-optimized designs</p>
+      </div>
+      
+      <div>
+        <div style="background: #007bff; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 20px;">2</div>
+        <h3>Fill Your Info</h3>
+        <p>Easy form to add your experience and skills</p>
+      </div>
+      
+      <div>
+        <div style="background: #007bff; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 20px;">3</div>
+        <h3>Download PDF</h3>
+        <p>Get your professional resume instantly</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Resume Builder Section -->
+<section id="start-building" style="padding: 80px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to Launch Your Career?</h2>
+    <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Create your professional resume now - no sign up required!</p>
+    <button onclick="startResumeBuilder('modern')" style="padding: 15px 40px; background: white; color: #667eea; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">Start Building Your Resume</button>
+  </div>
+</section>
 
 <script>
-const API_BASE = 'http://localhost:3000/api';
-
-function showAuthModal() {
-  document.getElementById('authModal').style.display = 'block';
-}
-
-function hideAuthModal() {
-  document.getElementById('authModal').style.display = 'none';
-}
-
-async function handleLogin() {
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
-  
-  try {
-    const response = await fetch(API_BASE + '/login', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email, password})
-    });
-    const data = await response.json();
-    alert(data.success ? 'Login successful! 🎉' : 'Login failed');
-    if(data.success) hideAuthModal();
-  } catch(error) {
-    alert('Network error');
-  }
-}
-
-async function handleGoogleAuth() {
-  try {
-    const response = await fetch(API_BASE + '/auth/google', {method: 'POST'});
-    const data = await response.json();
-    alert(data.success ? 'Google auth successful! 🎉' : 'Google auth failed');
-    if(data.success) hideAuthModal();
-  } catch(error) {
-    alert('Google auth failed');
-  }
-}
-
-async function handleFacebookAuth() {
-  try {
-    const response = await fetch(API_BASE + '/auth/facebook', {method: 'POST'});
-    const data = await response.json();
-    alert(data.success ? 'Facebook auth successful! 🎉' : 'Facebook auth failed');
-    if(data.success) hideAuthModal();
-  } catch(error) {
-    alert('Facebook auth failed');
-  }
-}
-
-window.onclick = function(event) {
-  if (event.target == document.getElementById('authModal')) {
-    hideAuthModal();
-  }
-}
-</script><!-- AUTH MODAL - Resume Rocket -->
-<div id="authModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000;">
-  <div style="background:white; margin:10% auto; padding:30px; border-radius:10px; width:90%; max-width:400px; text-align:center;">
-    <button onclick="hideAuthModal()" style="float:right; background:none; border:none; font-size:20px;">×</button>
-    <h3>Join Resume Rocket 🚀</h3>
-    <input type="email" id="loginEmail" placeholder="Enter your email" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:5px;">
-    <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:5px;">
-    <button onclick="handleLogin()" style="width:100%; padding:12px; background:#007bff; color:white; border:none; border-radius:5px; margin:5px 0;">Login</button>
-    <button onclick="handleGoogleAuth()" style="width:100%; padding:12px; background:#db4437; color:white; border:none; border-radius:5px; margin:3px 0;">Google</button>
-    <button onclick="handleFacebookAuth()" style="width:100%; padding:12px; background:#4267B2; color:white; border:none; border-radius:5px; margin:3px 0;">Facebook</button>
-  </div>
-</div>
-
-<script>
-const API_BASE = 'http://localhost:3000/api';
-
-function showAuthModal() {
-  document.getElementById('authModal').style.display = 'block';
-}
-
-function hideAuthModal() {
-  document.getElementById('authModal').style.display = 'none';
-}
-
-async function handleLogin() {
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
-  
-  try {
-    const response = await fetch(API_BASE + '/login', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email, password})
-    });
-    const data = await response.json();
-    alert(data.success ? 'Login successful! 🎉' : 'Login failed');
-    if(data.success) hideAuthModal();
-  } catch(error) {
-    alert('Network error');
-  }
-}
-
-async function handleGoogleAuth() {
-  try {
-    const response = await fetch(API_BASE + '/auth/google', {method: 'POST'});
-    const data = await response.json();
-    alert(data.success ? 'Google auth successful! 🎉' : 'Google auth failed');
-    if(data.success) hideAuthModal();
-  } catch(error) {
-    alert('Google auth failed');
-  }
-}
-
-async function handleFacebookAuth() {
-  try {
-    const response = await fetch(API_BASE + '/auth/facebook', {method: 'POST'});
-    const data = await response.json();
-    alert(data.success ? 'Facebook auth successful! 🎉' : 'Facebook auth failed');
-    if(data.success) hideAuthModal();
-  } catch(error) {
-    alert('Facebook auth failed');
-  }
-}
-
-window.onclick = function(event) {
-  if (event.target == document.getElementById('authModal')) {
-    hideAuthModal();
-  }
+function startResumeBuilder(template) {
+  alert('🚀 Launching ' + template + ' resume builder! This will open the resume creation tool.');
+  // Here we'll add the actual resume builder in next step
 }
 </script>
 </html>
