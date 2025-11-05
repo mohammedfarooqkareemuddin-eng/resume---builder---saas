@@ -658,219 +658,859 @@ function handleSignup() {
   </div>
 </section>
 
-<script>
-let selectedTemplate = 'modern'; // Default template
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeRocket | Professional Resume Builder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: #4361ee;
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .logo span {
+            color: #4361ee;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #4361ee;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #4361ee;
+            color: #4361ee;
+        }
+        
+        .btn-primary {
+            background: #4361ee;
+            border: 2px solid #4361ee;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hero Section - Updated Structure */
+        .hero {
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 40px;
+        }
+        
+        .hero-text {
+            max-width: 800px;
+        }
+        
+        .hero-text h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-text p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-image {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .btn-white {
+            background: white;
+            color: #4361ee;
+            border: 2px solid white;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* Motivational Section */
+        .motivational {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .motivational-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .quote-box {
+            flex: 1;
+            background: linear-gradient(135deg, #7209b7, #3a0ca3);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quote {
+            font-size: 24px;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .quote-author {
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        .motivational-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .motivational-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Templates Section */
+        .templates {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .template-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .template-preview {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .template-1 {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+        }
+        
+        .template-2 {
+            background: linear-gradient(135deg, #4cc9f0, #4361ee);
+        }
+        
+        .template-3 {
+            background: linear-gradient(135deg, #7209b7, #3a0ca3);
+        }
+        
+        .template-4 {
+            background: linear-gradient(135deg, #f72585, #b5179e);
+        }
+        
+        .template-info {
+            padding: 20px;
+        }
+        
+        .template-info h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .template-info p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: #f0f4f8;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 28px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .feature-card p {
+            color: #666;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #4361ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .author-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn-transparent {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a2e;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #4361ee;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2d2d44;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: #4361ee;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2d2d44;
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content, .motivational-content {
+                flex-direction: column;
+            }
+            
+            .hero-text, .motivational-image {
+                text-align: center;
+            }
+            
+            .stats {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .hero-text h2 {
+                font-size: 36px;
+            }
+            
+            .hero-buttons, .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <h1>Resume<span>Rocket</span></h1>
+                </div>
+                <div class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">Templates</a>
+                    <a href="#">Examples</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline">Log In</button>
+                    <button class="btn btn-primary">Sign Up Free</button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-function startResumeBuilder(template) {
-  selectedTemplate = template;
-  
-  // Hide main page sections
-  document.querySelectorAll('section').forEach(section => {
-    section.style.display = 'none';
-  });
-  
-  // Show template-specific resume builder
-  showTemplateForm(template);
-}
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Your Dream Career Starts Here</h2>
+                    <p>Create a professional resume in minutes with our easy-to-use builder and land your dream job faster.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-white">Create Your Resume</button>
+                        <button class="btn btn-transparent">See How It Works</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Professional woman working">
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">7,664,244</div>
+                        <div class="stat-label">Resumes Created</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">86%</div>
+                        <div class="stat-label">Positive Ratings</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-function showTemplateForm(template) {
-  // Hide all template forms first
-  document.querySelectorAll('[id$="-form"]').forEach(form => {
-    form.style.display = 'none';
-  });
-  
-  // Show selected template form
-  document.getElementById(`${template}-form`).style.display = 'block';
-}
+    <!-- Motivational Section -->
+    <section class="motivational">
+        <div class="container">
+            <div class="motivational-content">
+                <div class="quote-box">
+                    <p class="quote">"The future depends on what you do today. - Mahatma Gandhi"</p>
+                </div>
+                <div class="motivational-image">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Professional lady">
+                </div>
+            </div>
+        </div>
+    </section>
 
-function generatePDF() {
-  const template = selectedTemplate;
-  const formData = getFormData(template);
-  
-  // Create template-specific resume content
-  const resumeContent = generateTemplateResume(template, formData);
-  
-  // Create downloadable file
-  const blob = new Blob([resumeContent], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${formData.name}-${template}-resume.txt`;
-  a.click();
-  
-  alert(`📄 ${template.charAt(0).toUpperCase() + template.slice(1)} Resume Downloaded!`);
-}
+    <!-- Templates Section -->
+    <section class="templates">
+        <div class="container">
+            <h2 class="section-title">Professional Resume Templates</h2>
+            <p class="section-subtitle">Choose from our collection of ATS-friendly templates designed to get you noticed by recruiters and hiring managers.</p>
+            
+            <div class="template-grid">
+                <div class="template-card">
+                    <div class="template-preview template-1">
+                        Modern
+                    </div>
+                    <div class="template-info">
+                        <h3>Modern Professional</h3>
+                        <p>Clean, contemporary design perfect for tech and creative industries.</p>
+                        <button class="btn btn-primary">Use Template</button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-preview template-2">
+                        Executive
+                    </div>
+                    <div class="template-info">
+                        <h3>Executive</h3>
+                        <p>Sophisticated layout ideal for senior-level positions and corporate roles.</p>
+                        <button class="btn btn-primary">Use Template</button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-preview template-3">
+                        Creative
+                    </div>
+                    <div class="template-info">
+                        <h3>Creative</h3>
+                        <p>Bold and innovative design for those in design and marketing fields.</p>
+                        <button class="btn btn-primary">Use Template</button>
+                    </div>
+                </div>
+                
+                <div class="template-card">
+                    <div class="template-preview template-4">
+                        Minimal
+                    </div>
+                    <div class="template-info">
+                        <h3>Minimalist</h3>
+                        <p>Simple yet elegant design that focuses on your content and achievements.</p>
+                        <button class="btn btn-primary">Use Template</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-function getFormData(template) {
-  // Get data based on template form
-  if (template === 'modern') {
-    return {
-      name: document.getElementById('modern-name').value || 'Your Name',
-      email: document.getElementById('modern-email').value || 'email@example.com',
-      phone: document.getElementById('modern-phone').value || '(123) 456-7890',
-      summary: document.getElementById('modern-summary').value || 'Professional summary',
-      experience: document.getElementById('modern-experience').value || 'Work experience',
-      education: document.getElementById('modern-education').value || 'Education background',
-      skills: document.getElementById('modern-skills').value || 'Key skills'
-    };
-  } else if (template === 'executive') {
-    return {
-      name: document.getElementById('executive-name').value || 'Your Name',
-      email: document.getElementById('executive-email').value || 'email@example.com',
-      phone: document.getElementById('executive-phone').value || '(123) 456-7890',
-      title: document.getElementById('executive-title').value || 'Professional Title',
-      experience: document.getElementById('executive-experience').value || 'Executive experience',
-      education: document.getElementById('executive-education').value || 'Advanced education',
-      achievements: document.getElementById('executive-achievements').value || 'Key achievements',
-      skills: document.getElementById('executive-skills').value || 'Leadership skills'
-    };
-  } else if (template === 'creative') {
-    return {
-      name: document.getElementById('creative-name').value || 'Your Name',
-      email: document.getElementById('creative-email').value || 'email@example.com',
-      portfolio: document.getElementById('creative-portfolio').value || 'portfolio.com',
-      bio: document.getElementById('creative-bio').value || 'Creative bio',
-      projects: document.getElementById('creative-projects').value || 'Notable projects',
-      skills: document.getElementById('creative-skills').value || 'Creative skills',
-      tools: document.getElementById('creative-tools').value || 'Design tools'
-    };
-  }
-}
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose ResumeRocket?</h2>
+            <p class="section-subtitle">Our platform offers everything you need to create a standout resume that gets results.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Easy to Use</h3>
+                    <p>Our intuitive builder makes creating a professional resume simple, even if you're not tech-savvy.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>ATS Optimized</h3>
+                    <p>All our templates are designed to pass through Applicant Tracking Systems used by employers.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Multiple Formats</h3>
+                    <p>Download your resume in PDF, Word, or plain text formats for any application requirement.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Secure & Private</h3>
+                    <p>Your data is protected with enterprise-grade security and we never share your information.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-function generateTemplateResume(template, data) {
-  if (template === 'modern') {
-    return `
-MODERN PROFESSIONAL RESUME
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Success Stories</h2>
+            <p class="section-subtitle">Hear from professionals who landed their dream jobs with ResumeRocket.</p>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I was struggling to get interviews despite having the right qualifications. After using ResumeRocket, I got 3 interview calls in one week!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SD</div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Marketing Manager</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The templates are not only beautiful but also ATS-friendly. I landed my dream job at a tech giant thanks to my new resume."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <h4>Michael Rodriguez</h4>
+                            <p>Software Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"As a recent graduate, I needed a resume that would stand out. ResumeRocket helped me create a professional CV that got me multiple offers."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">ED</div>
+                        <div class="author-info">
+                            <h4>Emily Chen</h4>
+                            <p>Graphic Designer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-CONTACT INFORMATION
-Name: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone}
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Launch Your Career?</h2>
+            <p>Join millions of professionals who have transformed their job search with ResumeRocket. Create your professional resume today.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-white">Create Your Resume</button>
+                <button class="btn btn-transparent">View Templates</button>
+            </div>
+        </div>
+    </section>
 
-PROFESSIONAL SUMMARY
-${data.summary}
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ResumeRocket</h3>
+                    <p>Creating professional resumes that help you land your dream job faster.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Resume Builder</a></li>
+                        <li><a href="#">Templates</a></li>
+                        <li><a href="#">Cover Letters</a></li>
+                        <li><a href="#">Examples</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Career Advice</a></li>
+                        <li><a href="#">Resume Tips</a></li>
+                        <li><a href="#">Interview Tips</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 ResumeRocket. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-EXPERIENCE
-${data.experience}
-
-EDUCATION
-${data.education}
-
-SKILLS
-${data.skills}
-
-Generated with Resume Rocket 🚀 - Modern Template
-    `;
-  } else if (template === 'executive') {
-    return `
-EXECUTIVE RESUME
-
-${data.name}
-${data.title}
-
-CONTACT
-Email: ${data.email}
-Phone: ${data.phone}
-
-EXECUTIVE EXPERIENCE
-${data.experience}
-
-KEY ACHIEVEMENTS
-${data.achievements}
-
-EDUCATION
-${data.education}
-
-LEADERSHIP SKILLS
-${data.skills}
-
-Generated with Resume Rocket 🚀 - Executive Template
-    `;
-  } else if (template === 'creative') {
-    return `
-CREATIVE PORTFOLIO RESUME
-
-${data.name}
-Creative Professional
-
-CONTACT
-Email: ${data.email}
-Portfolio: ${data.portfolio}
-
-BIO
-${data.bio}
-
-PROJECTS
-${data.projects}
-
-SKILLS
-${data.skills}
-
-TOOLS & TECHNOLOGIES
-${data.tools}
-
-Generated with Resume Rocket 🚀 - Creative Template
-    `;
-  }
-}
-</script>
-
-<!-- Modern Template Form -->
-<div id="modern-form" class="template-form" style="display: none; padding: 40px 20px; max-width: 800px; margin: 0 auto;">
-  <h2 style="text-align: center; color: #333; margin-bottom: 30px;">🎯 Modern Professional Resume</h2>
-  <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-    <input type="text" id="modern-name" placeholder="Full Name" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <input type="email" id="modern-email" placeholder="Email Address" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <input type="tel" id="modern-phone" placeholder="Phone Number" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <textarea id="modern-summary" placeholder="Professional Summary" style="width: 100%; padding: 12px; height: 80px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;"></textarea>
-    <textarea id="modern-experience" placeholder="Work Experience" style="width: 100%; padding: 12px; height: 120px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;"></textarea>
-    <textarea id="modern-education" placeholder="Education" style="width: 100%; padding: 12px; height: 100px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;"></textarea>
-    <input type="text" id="modern-skills" placeholder="Skills (separated by commas)" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    
-    <button onclick="generatePDF()" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin: 20px 0 10px;">
-      📥 Download Modern Resume
-    </button>
-  </div>
-</div>
-
-<!-- Executive Template Form -->
-<div id="executive-form" class="template-form" style="display: none; padding: 40px 20px; max-width: 800px; margin: 0 auto;">
-  <h2 style="text-align: center; color: #333; margin-bottom: 30px;">💼 Executive Resume</h2>
-  <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-    <input type="text" id="executive-name" placeholder="Full Name" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <input type="text" id="executive-title" placeholder="Professional Title (e.g., Senior Manager)" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <input type="email" id="executive-email" placeholder="Email Address" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <input type="tel" id="executive-phone" placeholder="Phone Number" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <textarea id="executive-experience" placeholder="Executive Experience & Leadership Roles" style="width: 100%; padding: 12px; height: 120px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;"></textarea>
-    <textarea id="executive-achievements" placeholder="Key Achievements & Metrics" style="width: 100%; padding: 12px; height: 100px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;"></textarea>
-    <textarea id="executive-education" placeholder="Education & Certifications" style="width: 100%; padding: 12px; height: 80px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;"></textarea>
-    <input type="text" id="executive-skills" placeholder="Leadership & Management Skills" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    
-    <button onclick="generatePDF()" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin: 20px 0 10px;">
-      📥 Download Executive Resume
-    </button>
-  </div>
-</div>
-
-<!-- Creative Template Form -->
-<div id="creative-form" class="template-form" style="display: none; padding: 40px 20px; max-width: 800px; margin: 0 auto;">
-  <h2 style="text-align: center; color: #333; margin-bottom: 30px;">🎨 Creative Portfolio Resume</h2>
-  <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-    <input type="text" id="creative-name" placeholder="Full Name" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <input type="email" id="creative-email" placeholder="Email Address" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <input type="text" id="creative-portfolio" placeholder="Portfolio Website/Behance/Dribbble" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <textarea id="creative-bio" placeholder="Creative Bio & Philosophy" style="width: 100%; padding: 12px; height: 100px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;"></textarea>
-    <textarea id="creative-projects" placeholder="Notable Projects & Case Studies" style="width: 100%; padding: 12px; height: 120px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;"></textarea>
-    <input type="text" id="creative-skills" placeholder="Creative Skills (Design, Illustration, etc.)" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    <input type="text" id="creative-tools" placeholder="Tools & Software (Photoshop, Figma, etc.)" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px;">
-    
-    <button onclick="generatePDF()" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #e74c3c 0%, #e67e22 100%); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin: 20px 0 10px;">
-      📥 Download Creative Resume
-    </button>
-  </div>
-</div>
-
-<button onclick="location.reload()" style="width: 100%; max-width: 800px; margin: 20px auto; display: block; padding: 12px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">
-  ← Back to Templates
-</button>
+    <script>
+        // Simple animation for template cards on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const templateCards = document.querySelectorAll('.template-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            templateCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
 </html>
