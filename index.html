@@ -1245,8 +1245,8 @@ function handleSignup() {
                     <h2>Your Dream Career Starts Here</h2>
                     <p>Create a professional resume in minutes with our easy-to-use builder and land your dream job faster.</p>
                     <div class="hero-buttons">
-                        <button class="btn btn-white">Create Your Resume</button>
-                        <button class="btn btn-transparent">See How It Works</button>
+                        <button class="btn btn-white" onclick="startResumeBuilder('modern')">Create Your Resume</button>
+                        <button class="btn btn-transparent" onclick="document.getElementById('templates-section').scrollIntoView({behavior: 'smooth'})">See How It Works</button>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -1285,20 +1285,20 @@ function handleSignup() {
     </section>
 
     <!-- Templates Section -->
-    <section class="templates">
+    <section class="templates" id="templates-section">
         <div class="container">
             <h2 class="section-title">Professional Resume Templates</h2>
             <p class="section-subtitle">Choose from our collection of ATS-friendly templates designed to get you noticed by recruiters and hiring managers.</p>
             
             <div class="template-grid">
                 <div class="template-card">
-                    <div class="template-preview template-1">
+                    <div class="template-preview template-1>
                         Modern
                     </div>
-                    <div class="template-info">
+                    <div class="template-info>
                         <h3>Modern Professional</h3>
                         <p>Clean, contemporary design perfect for tech and creative industries.</p>
-                        <button class="btn btn-primary">Use Template</button>
+                        <button class="btn btn-primary" onclick="startResumeBuilder('modern')">Use Template</button>
                     </div>
                 </div>
                 
@@ -1309,7 +1309,7 @@ function handleSignup() {
                     <div class="template-info">
                         <h3>Executive</h3>
                         <p>Sophisticated layout ideal for senior-level positions and corporate roles.</p>
-                        <button class="btn btn-primary">Use Template</button>
+                        <button class="btn btn-primary" onclick="startResumeBuilder('executive')">Use Template</button>
                     </div>
                 </div>
                 
@@ -1320,7 +1320,7 @@ function handleSignup() {
                     <div class="template-info">
                         <h3>Creative</h3>
                         <p>Bold and innovative design for those in design and marketing fields.</p>
-                        <button class="btn btn-primary">Use Template</button>
+                        <button class="btn btn-primary" onclick="startResumeBuilder('creative')">Use Template</button>
                     </div>
                 </div>
                 
@@ -1331,7 +1331,7 @@ function handleSignup() {
                     <div class="template-info">
                         <h3>Minimalist</h3>
                         <p>Simple yet elegant design that focuses on your content and achievements.</p>
-                        <button class="btn btn-primary">Use Template</button>
+                        <button class="btn btn-primary" onclick="startResumeBuilder('modern')">Use Template</button>
                     </div>
                 </div>
             </div>
@@ -1429,8 +1429,8 @@ function handleSignup() {
             <h2>Ready to Launch Your Career?</h2>
             <p>Join millions of professionals who have transformed their job search with ResumeRocket. Create your professional resume today.</p>
             <div class="cta-buttons">
-                <button class="btn btn-white">Create Your Resume</button>
-                <button class="btn btn-transparent">View Templates</button>
+                <button class="btn btn-white" onclick="startResumeBuilder('modern')">Create Your Resume</button>
+                <button class="btn btn-transparent" onclick="document.getElementById('templates-section').scrollIntoView({behavior: 'smooth'})">View Templates</button>
             </div>
         </div>
     </section>
