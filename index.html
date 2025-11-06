@@ -644,9 +644,12 @@
                     <a href="#">Blog</a>
                 </div>
                 <div class="auth-buttons">
-                    <button class="btn btn-outline" onclick="alert('Login feature coming soon!')">Log In</button>
-                    <button class="btn btn-primary" onclick="startResumeBuilder('modern')">Sign Up Free</button>
-                </div>
+    <button class="btn btn-outline" onclick="openAuthModal('login')">Log In</button>
+    <button class="btn btn-primary" onclick="openAuthModal('signup')">Sign Up Free</button>
+</div>
+                
+                    
+                
             </div>
         </div>
     </header>
@@ -1126,5 +1129,381 @@ Generated with Resume Rocket 🚀 - Creative Template`;
             }
         }
     </script>
+ <!-- Login/Signup Modal System -->
+<div id="auth-modal" class="auth-modal" style="display: none;">
+    <div class="auth-modal-content">
+        <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+        
+        <!-- Login Form -->
+        <div id="login-form" class="auth-form">
+            <h2>Welcome Back</h2>
+            <p>Sign in to your ResumeRocket account</p>
+            
+            <div class="social-login">
+                <button class="btn-social btn-google">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+                <button class="btn-social btn-linkedin">
+                    <i class="fab fa-linkedin"></i> Continue with LinkedIn
+                </button>
+            </div>
+            
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <form id="loginForm">
+                <input type="email" placeholder="Email Address" class="form-input" required>
+                <input type="password" placeholder="Password" class="form-input" required>
+                
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="auth-submit-btn">Sign In</button>
+            </form>
+            
+            <p class="auth-switch">
+                Don't have an account? <a href="#" onclick="showSignupForm()">Sign up free</a>
+            </p>
+        </div>
+        
+        <!-- Signup Form -->
+        <div id="signup-form" class="auth-form" style="display: none;">
+            <h2>Start Your Journey</h2>
+            <p>Create your free ResumeRocket account</p>
+            
+            <div class="social-login">
+                <button class="btn-social btn-google">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+                <button class="btn-social btn-linkedin">
+                    <i class="fab fa-linkedin"></i> Continue with LinkedIn
+                </button>
+            </div>
+            
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <form id="signupForm">
+                <div class="name-fields">
+                    <input type="text" placeholder="First Name" class="form-input" required>
+                    <input type="text" placeholder="Last Name" class="form-input" required>
+                </div>
+                <input type="email" placeholder="Email Address" class="form-input" required>
+                <input type="password" placeholder="Create Password" class="form-input" required>
+                
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" required> 
+                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="auth-submit-btn">Create Account</button>
+            </form>
+            
+            <p class="auth-switch">
+                Already have an account? <a href="#" onclick="showLoginForm()">Sign in</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Auth Modal Styles */
+.auth-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.auth-modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #4361ee;
+}
+
+.auth-form h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 28px;
+    text-align: center;
+}
+
+.auth-form p {
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn-social {
+    padding: 12px 20px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-social:hover {
+    border-color: #4361ee;
+    transform: translateY(-2px);
+}
+
+.btn-google {
+    color: #333;
+}
+
+.btn-linkedin {
+    color: #0077b5;
+}
+
+.divider {
+    text-align: center;
+    margin: 25px 0;
+    position: relative;
+    color: #666;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.divider span {
+    background: white;
+    padding: 0 15px;
+}
+
+.name-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.checkbox input {
+    margin: 0;
+}
+
+.forgot-password {
+    color: #4361ee;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.auth-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 25px;
+    color: #666;
+}
+
+.auth-switch a {
+    color: #4361ee;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .auth-modal-content {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+    
+    .name-fields {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+</style>
+
+<script>
+// Auth Modal Functions
+function openAuthModal(formType = 'login') {
+    document.getElementById('auth-modal').style.display = 'flex';
+    if (formType === 'login') {
+        showLoginForm();
+    } else {
+        showSignupForm();
+    }
+}
+
+function closeAuthModal() {
+    document.getElementById('auth-modal').style.display = 'none';
+}
+
+function showLoginForm() {
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('signup-form').style.display = 'none';
+}
+
+function showSignupForm() {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('signup-form').style.display = 'block';
+}
+
+// Close modal when clicking outside
+document.getElementById('auth-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeAuthModal();
+    }
+});
+
+// Form submission handlers
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Simulate login process
+    alert('Login functionality would connect to your backend API');
+    closeAuthModal();
+});
+
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Simulate signup process
+    alert('Account created successfully! Welcome to ResumeRocket 🚀');
+    closeAuthModal();
+});
+
+// Social login handlers
+document.querySelectorAll('.btn-social').forEach(btn => {
+    btn.addEventListener('click', function() {
+        alert('Social login would integrate with Google/LinkedIn APIs');
+    });
+});
+
+// Update header buttons to use new modal system
+function updateHeaderButtons() {
+    // Update Login button
+    const loginBtn = document.querySelector('.auth-buttons .btn-outline');
+    if (loginBtn) {
+        loginBtn.setAttribute('onclick', 'openAuthModal("login")');
+        loginBtn.textContent = 'Log In';
+    }
+    
+    // Update Signup button
+    const signupBtn = document.querySelector('.auth-buttons .btn-primary');
+    if (signupBtn) {
+        signupBtn.setAttribute('onclick', 'openAuthModal("signup")');
+        signupBtn.textContent = 'Sign Up Free';
+    }
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    updateHeaderButtons();
+});
+</script>   
 </body>
 </html>
