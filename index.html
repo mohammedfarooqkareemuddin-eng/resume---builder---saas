@@ -1129,7 +1129,9 @@ Generated with Resume Rocket 🚀 - Creative Template`;
             }
         }
     </script>
- <!-- Login/Signup Modal System -->
+ 
+
+ <!-- Enhanced Login/Signup Modal System -->
 <div id="auth-modal" class="auth-modal" style="display: none;">
     <div class="auth-modal-content">
         <span class="close-modal" onclick="closeAuthModal()">&times;</span>
@@ -1140,21 +1142,24 @@ Generated with Resume Rocket 🚀 - Creative Template`;
             <p>Sign in to your ResumeRocket account</p>
             
             <div class="social-login">
-                <button class="btn-social btn-google">
+                <button class="btn-social btn-google" id="google-login">
                     <i class="fab fa-google"></i> Continue with Google
                 </button>
-                <button class="btn-social btn-linkedin">
+                <button class="btn-social btn-linkedin" id="linkedin-login">
                     <i class="fab fa-linkedin"></i> Continue with LinkedIn
                 </button>
             </div>
             
             <div class="divider">
-                <span>or</span>
+                <span>or sign in with email</span>
             </div>
             
             <form id="loginForm">
-                <input type="email" placeholder="Email Address" class="form-input" required>
-                <input type="password" placeholder="Password" class="form-input" required>
+                <input type="email" id="login-email" placeholder="Email Address" class="form-input" required>
+                <div id="login-email-error" class="error-message"></div>
+                
+                <input type="password" id="login-password" placeholder="Password" class="form-input" required>
+                <div id="login-password-error" class="error-message"></div>
                 
                 <div class="form-options">
                     <label class="checkbox">
@@ -1163,7 +1168,7 @@ Generated with Resume Rocket 🚀 - Creative Template`;
                     <a href="#" class="forgot-password">Forgot password?</a>
                 </div>
                 
-                <button type="submit" class="auth-submit-btn">Sign In</button>
+                <button type="submit" class="auth-submit-btn" id="login-submit">Sign In</button>
             </form>
             
             <p class="auth-switch">
@@ -1171,40 +1176,54 @@ Generated with Resume Rocket 🚀 - Creative Template`;
             </p>
         </div>
         
-        <!-- Signup Form -->
+        <!-- Enhanced Signup Form -->
         <div id="signup-form" class="auth-form" style="display: none;">
             <h2>Start Your Journey</h2>
             <p>Create your free ResumeRocket account</p>
             
             <div class="social-login">
-                <button class="btn-social btn-google">
+                <button class="btn-social btn-google" id="google-signup">
                     <i class="fab fa-google"></i> Continue with Google
                 </button>
-                <button class="btn-social btn-linkedin">
+                <button class="btn-social btn-linkedin" id="linkedin-signup">
                     <i class="fab fa-linkedin"></i> Continue with LinkedIn
                 </button>
             </div>
             
             <div class="divider">
-                <span>or</span>
+                <span>or sign up with email</span>
             </div>
             
             <form id="signupForm">
                 <div class="name-fields">
-                    <input type="text" placeholder="First Name" class="form-input" required>
-                    <input type="text" placeholder="Last Name" class="form-input" required>
+                    <div>
+                        <input type="text" id="signup-firstname" placeholder="First Name" class="form-input" required>
+                        <div id="signup-firstname-error" class="error-message"></div>
+                    </div>
+                    <div>
+                        <input type="text" id="signup-lastname" placeholder="Last Name" class="form-input" required>
+                        <div id="signup-lastname-error" class="error-message"></div>
+                    </div>
                 </div>
-                <input type="email" placeholder="Email Address" class="form-input" required>
-                <input type="password" placeholder="Create Password" class="form-input" required>
+                
+                <input type="email" id="signup-email" placeholder="Email Address" class="form-input" required>
+                <div id="signup-email-error" class="error-message"></div>
+                
+                <input type="password" id="signup-password" placeholder="Create Password (min. 8 characters)" class="form-input" required>
+                <div id="signup-password-error" class="error-message"></div>
+                <div id="password-strength" class="password-strength"></div>
+                
+                <input type="password" id="signup-confirm-password" placeholder="Confirm Password" class="form-input" required>
+                <div id="signup-confirm-password-error" class="error-message"></div>
                 
                 <div class="form-options">
                     <label class="checkbox">
-                        <input type="checkbox" required> 
+                        <input type="checkbox" id="agree-terms" required> 
                         I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
                     </label>
                 </div>
                 
-                <button type="submit" class="auth-submit-btn">Create Account</button>
+                <button type="submit" class="auth-submit-btn" id="signup-submit">Create Account</button>
             </form>
             
             <p class="auth-switch">
@@ -1215,7 +1234,7 @@ Generated with Resume Rocket 🚀 - Creative Template`;
 </div>
 
 <style>
-/* Auth Modal Styles */
+/* Enhanced Auth Modal Styles */
 .auth-modal {
     position: fixed;
     top: 0;
@@ -1394,6 +1413,103 @@ Generated with Resume Rocket 🚀 - Creative Template`;
     text-decoration: underline;
 }
 
+/* Enhanced Validation Styles */
+.error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+.form-input.error {
+    border-color: #e74c3c;
+    background-color: #fdf2f2;
+}
+
+.password-strength {
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 4px;
+    display: none;
+}
+
+.password-strength.weak {
+    color: #e74c3c;
+    background-color: #fdf2f2;
+}
+
+.password-strength.medium {
+    color: #f39c12;
+    background-color: #fef9e7;
+}
+
+.password-strength.strong {
+    color: #27ae60;
+    background-color: #f0fdf4;
+}
+
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-greeting {
+    color: #4361ee;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 16px;
+    border: 2px solid #4361ee;
+    border-radius: 5px;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+
+.user-dropdown a:hover {
+    background-color: #f8f9fa;
+    color: #4361ee;
+}
+
+.user-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.user-menu:hover .user-dropdown {
+    display: block;
+}
+
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -1430,7 +1546,7 @@ Generated with Resume Rocket 🚀 - Creative Template`;
 </style>
 
 <script>
-// Auth Modal Functions
+// Enhanced Auth Modal Functions with Validation
 function openAuthModal(formType = 'login') {
     document.getElementById('auth-modal').style.display = 'flex';
     if (formType === 'login') {
@@ -1442,17 +1558,275 @@ function openAuthModal(formType = 'login') {
 
 function closeAuthModal() {
     document.getElementById('auth-modal').style.display = 'none';
+    // Reset forms
+    document.getElementById('loginForm').reset();
+    document.getElementById('signupForm').reset();
+    clearValidationErrors();
 }
 
 function showLoginForm() {
     document.getElementById('login-form').style.display = 'block';
     document.getElementById('signup-form').style.display = 'none';
+    clearValidationErrors();
 }
 
 function showSignupForm() {
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('signup-form').style.display = 'block';
+    clearValidationErrors();
 }
+
+// Email validation function
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Password strength checker
+function checkPasswordStrength(password) {
+    if (password.length < 8) return 'weak';
+    if (password.length < 12) return 'medium';
+    if (/[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*]/.test(password)) {
+        return 'strong';
+    }
+    return 'medium';
+}
+
+// Clear all validation errors
+function clearValidationErrors() {
+    document.querySelectorAll('.error-message').forEach(error => {
+        error.style.display = 'none';
+    });
+    document.querySelectorAll('.form-input').forEach(input => {
+        input.classList.remove('error');
+    });
+    document.querySelectorAll('.password-strength').forEach(strength => {
+        strength.style.display = 'none';
+    });
+}
+
+// Show validation error
+function showError(inputId, message) {
+    const input = document.getElementById(inputId);
+    const errorElement = document.getElementById(inputId + '-error');
+    
+    if (input && errorElement) {
+        input.classList.add('error');
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+}
+
+// Hide validation error
+function hideError(inputId) {
+    const input = document.getElementById(inputId);
+    const errorElement = document.getElementById(inputId + '-error');
+    
+    if (input && errorElement) {
+        input.classList.remove('error');
+        errorElement.style.display = 'none';
+    }
+}
+
+// Real-time validation
+function setupRealTimeValidation() {
+    // Email validation
+    document.getElementById('signup-email').addEventListener('blur', function() {
+        if (!isValidEmail(this.value)) {
+            showError('signup-email', 'Please enter a valid email address');
+        } else {
+            hideError('signup-email');
+        }
+    });
+
+    // Password strength
+    document.getElementById('signup-password').addEventListener('input', function() {
+        const strength = checkPasswordStrength(this.value);
+        const strengthElement = document.getElementById('password-strength');
+        
+        if (this.value.length === 0) {
+            strengthElement.style.display = 'none';
+            return;
+        }
+        
+        strengthElement.style.display = 'block';
+        strengthElement.className = 'password-strength ' + strength;
+        
+        if (strength === 'weak') {
+            strengthElement.textContent = 'Weak password - use at least 8 characters';
+        } else if (strength === 'medium') {
+            strengthElement.textContent = 'Medium strength - add uppercase letters and numbers';
+        } else {
+            strengthElement.textContent = 'Strong password!';
+        }
+    });
+
+    // Confirm password
+    document.getElementById('signup-confirm-password').addEventListener('blur', function() {
+        const password = document.getElementById('signup-password').value;
+        if (this.value !== password) {
+            showError('signup-confirm-password', 'Passwords do not match');
+        } else {
+            hideError('signup-confirm-password');
+        }
+    });
+}
+
+// Enhanced form submission handlers
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    clearValidationErrors();
+    
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    
+    let isValid = true;
+    
+    if (!email) {
+        showError('login-email', 'Email is required');
+        isValid = false;
+    } else if (!isValidEmail(email)) {
+        showError('login-email', 'Please enter a valid email address');
+        isValid = false;
+    }
+    
+    if (!password) {
+        showError('login-password', 'Password is required');
+        isValid = false;
+    }
+    
+    if (isValid) {
+        // Simulate API call
+        showLoading('login-submit', 'Signing in...');
+        
+        setTimeout(() => {
+            hideLoading('login-submit', 'Sign In');
+            alert('🎉 Welcome back to ResumeRocket!');
+            closeAuthModal();
+            
+            // Update UI to show logged in state
+            updateUIAfterLogin(email);
+        }, 1500);
+    }
+});
+
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    clearValidationErrors();
+    
+    const firstName = document.getElementById('signup-firstname').value;
+    const lastName = document.getElementById('signup-lastname').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const confirmPassword = document.getElementById('signup-confirm-password').value;
+    const agreeTerms = document.getElementById('agree-terms').checked;
+    
+    let isValid = true;
+    
+    if (!firstName) {
+        showError('signup-firstname', 'First name is required');
+        isValid = false;
+    }
+    
+    if (!lastName) {
+        showError('signup-lastname', 'Last name is required');
+        isValid = false;
+    }
+    
+    if (!email) {
+        showError('signup-email', 'Email is required');
+        isValid = false;
+    } else if (!isValidEmail(email)) {
+        showError('signup-email', 'Please enter a valid email address');
+        isValid = false;
+    }
+    
+    if (!password) {
+        showError('signup-password', 'Password is required');
+        isValid = false;
+    } else if (password.length < 8) {
+        showError('signup-password', 'Password must be at least 8 characters');
+        isValid = false;
+    }
+    
+    if (!confirmPassword) {
+        showError('signup-confirm-password', 'Please confirm your password');
+        isValid = false;
+    } else if (password !== confirmPassword) {
+        showError('signup-confirm-password', 'Passwords do not match');
+        isValid = false;
+    }
+    
+    if (!agreeTerms) {
+        alert('Please agree to the Terms of Service and Privacy Policy');
+        isValid = false;
+    }
+    
+    if (isValid) {
+        // Simulate API call
+        showLoading('signup-submit', 'Creating Account...');
+        
+        setTimeout(() => {
+            hideLoading('signup-submit', 'Create Account');
+            alert('🎉 Welcome to ResumeRocket! Your account has been created successfully.');
+            closeAuthModal();
+            
+            // Update UI to show logged in state
+            updateUIAfterLogin(email);
+        }, 2000);
+    }
+});
+
+// Loading states
+function showLoading(buttonId, text) {
+    const button = document.getElementById(buttonId);
+    button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${text}`;
+    button.disabled = true;
+}
+
+function hideLoading(buttonId, originalText) {
+    const button = document.getElementById(buttonId);
+    button.innerHTML = originalText;
+    button.disabled = false;
+}
+
+// Update UI after login
+function updateUIAfterLogin(email) {
+    const authButtons = document.querySelector('.auth-buttons');
+    authButtons.innerHTML = `
+        <div class="user-menu">
+            <span class="user-greeting">Hi, ${email.split('@')[0]}</span>
+            <div class="user-dropdown">
+                <a href="#">My Profile</a>
+                <a href="#">My Resumes</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    `;
+}
+
+// Logout function
+function logout() {
+    const authButtons = document.querySelector('.auth-buttons');
+    authButtons.innerHTML = `
+        <button class="btn btn-outline" onclick="openAuthModal('login')">Log In</button>
+        <button class="btn btn-primary" onclick="openAuthModal('signup')">Sign Up Free</button>
+    `;
+    alert('You have been logged out successfully.');
+}
+
+// Enhanced social login handlers
+document.querySelectorAll('.btn-social').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const platform = this.classList.contains('btn-google') ? 'Google' : 'LinkedIn';
+        showLoading(this.id, `Connecting to ${platform}...`);
+        
+        setTimeout(() => {
+            hideLoading(this.id, `Continue with ${platform}`);
+            alert(`🔧 ${platform} integration is coming soon!\n\nFor now, please use email sign up to access all ResumeRocket features immediately. 🚀`);
+        }, 1000);
+    });
+});
 
 // Close modal when clicking outside
 document.getElementById('auth-modal').addEventListener('click', function(e) {
@@ -1461,49 +1835,10 @@ document.getElementById('auth-modal').addEventListener('click', function(e) {
     }
 });
 
-// Form submission handlers
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Simulate login process
-    alert('Login functionality would connect to your backend API');
-    closeAuthModal();
-});
-
-document.getElementById('signupForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Simulate signup process
-    alert('Account created successfully! Welcome to ResumeRocket 🚀');
-    closeAuthModal();
-});
-
-// Social login handlers
-document.querySelectorAll('.btn-social').forEach(btn => {
-    btn.addEventListener('click', function() {
-        alert('Social login would integrate with Google/LinkedIn APIs');
-    });
-});
-
-// Update header buttons to use new modal system
-function updateHeaderButtons() {
-    // Update Login button
-    const loginBtn = document.querySelector('.auth-buttons .btn-outline');
-    if (loginBtn) {
-        loginBtn.setAttribute('onclick', 'openAuthModal("login")');
-        loginBtn.textContent = 'Log In';
-    }
-    
-    // Update Signup button
-    const signupBtn = document.querySelector('.auth-buttons .btn-primary');
-    if (signupBtn) {
-        signupBtn.setAttribute('onclick', 'openAuthModal("signup")');
-        signupBtn.textContent = 'Sign Up Free';
-    }
-}
-
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    updateHeaderButtons();
+    setupRealTimeValidation();
 });
-</script>   
+</script>
 </body>
 </html>
