@@ -1131,585 +1131,19 @@ Generated with Resume Rocket 🚀 - Creative Template`;
     </script>
  
 
- <!-- Enhanced Login/Signup Modal System -->
-<div id="auth-modal" class="auth-modal" style="display: none;">
-    <div class="auth-modal-content">
-        <span class="close-modal" onclick="closeAuthModal()">&times;</span>
-        
-        <!-- Login Form -->
-        <div id="login-form" class="auth-form">
-            <h2>Welcome Back</h2>
-            <p>Sign in to your ResumeRocket account</p>
-            
-            <div class="social-login">
-                <button class="btn-social btn-google" id="google-login">
-                    <i class="fab fa-google"></i> Continue with Google
-                </button>
-                <button class="btn-social btn-linkedin" id="linkedin-login">
-                    <i class="fab fa-linkedin"></i> Continue with LinkedIn
-                </button>
-            </div>
-            
-            <div class="divider">
-                <span>or sign in with email</span>
-            </div>
-            
-            <form id="loginForm">
-                <input type="email" id="login-email" placeholder="Email Address" class="form-input" required>
-                <div id="login-email-error" class="error-message"></div>
-                
-                <input type="password" id="login-password" placeholder="Password" class="form-input" required>
-                <div id="login-password-error" class="error-message"></div>
-                
-                <div class="form-options">
-                    <label class="checkbox">
-                        <input type="checkbox"> Remember me
-                    </label>
-                    <a href="#" class="forgot-password">Forgot password?</a>
-                </div>
-                
-                <button type="submit" class="auth-submit-btn" id="login-submit">Sign In</button>
-            </form>
-            
-            <p class="auth-switch">
-                Don't have an account? <a href="#" onclick="showSignupForm()">Sign up free</a>
-            </p>
-        </div>
-        
-        <!-- Enhanced Signup Form -->
-        <div id="signup-form" class="auth-form" style="display: none;">
-            <h2>Start Your Journey</h2>
-            <p>Create your free ResumeRocket account</p>
-            
-            <div class="social-login">
-                <button class="btn-social btn-google" id="google-signup">
-                    <i class="fab fa-google"></i> Continue with Google
-                </button>
-                <button class="btn-social btn-linkedin" id="linkedin-signup">
-                    <i class="fab fa-linkedin"></i> Continue with LinkedIn
-                </button>
-            </div>
-            
-            <div class="divider">
-                <span>or sign up with email</span>
-            </div>
-            
-            <form id="signupForm">
-                <div class="name-fields">
-                    <div>
-                        <input type="text" id="signup-firstname" placeholder="First Name" class="form-input" required>
-                        <div id="signup-firstname-error" class="error-message"></div>
-                    </div>
-                    <div>
-                        <input type="text" id="signup-lastname" placeholder="Last Name" class="form-input" required>
-                        <div id="signup-lastname-error" class="error-message"></div>
-                    </div>
-                </div>
-                
-                <input type="email" id="signup-email" placeholder="Email Address" class="form-input" required>
-                <div id="signup-email-error" class="error-message"></div>
-                
-                <input type="password" id="signup-password" placeholder="Create Password (min. 8 characters)" class="form-input" required>
-                <div id="signup-password-error" class="error-message"></div>
-                <div id="password-strength" class="password-strength"></div>
-                
-                <input type="password" id="signup-confirm-password" placeholder="Confirm Password" class="form-input" required>
-                <div id="signup-confirm-password-error" class="error-message"></div>
-                
-                <div class="form-options">
-                    <label class="checkbox">
-                        <input type="checkbox" id="agree-terms" required> 
-                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-                    </label>
-                </div>
-                
-                <button type="submit" class="auth-submit-btn" id="signup-submit">Create Account</button>
-            </form>
-            
-            <p class="auth-switch">
-                Already have an account? <a href="#" onclick="showLoginForm()">Sign in</a>
-            </p>
-        </div>
-    </div>
-</div>
-
-<style>
-/* Enhanced Auth Modal Styles */
-.auth-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease;
-}
-
-.auth-modal-content {
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 450px;
-    position: relative;
-    animation: slideUp 0.3s ease;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.close-modal {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
-    color: #666;
-    transition: color 0.3s;
-}
-
-.close-modal:hover {
-    color: #4361ee;
-}
-
-.auth-form h2 {
-    color: #333;
-    margin-bottom: 10px;
-    font-size: 28px;
-    text-align: center;
-}
-
-.auth-form p {
-    color: #666;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.social-login {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.btn-social {
-    padding: 12px 20px;
-    border: 2px solid #e0e0e0;
-    background: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.btn-social:hover {
-    border-color: #4361ee;
-    transform: translateY(-2px);
-}
-
-.btn-google {
-    color: #333;
-}
-
-.btn-linkedin {
-    color: #0077b5;
-}
-
-.divider {
-    text-align: center;
-    margin: 25px 0;
-    position: relative;
-    color: #666;
-}
-
-.divider::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: #e0e0e0;
-}
-
-.divider span {
-    background: white;
-    padding: 0 15px;
-}
-
-.name-fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 15px 0;
-}
-
-.checkbox {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: #666;
-}
-
-.checkbox input {
-    margin: 0;
-}
-
-.forgot-password {
-    color: #4361ee;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.forgot-password:hover {
-    text-decoration: underline;
-}
-
-.auth-submit-btn {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, #4361ee, #3a0ca3);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 10px;
-}
-
-.auth-submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-}
-
-.auth-switch {
-    text-align: center;
-    margin-top: 25px;
-    color: #666;
-}
-
-.auth-switch a {
-    color: #4361ee;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.auth-switch a:hover {
-    text-decoration: underline;
-}
-
-/* Enhanced Validation Styles */
-.error-message {
-    color: #e74c3c;
-    font-size: 12px;
-    margin-top: 5px;
-    display: none;
-}
-
-.form-input.error {
-    border-color: #e74c3c;
-    background-color: #fdf2f2;
-}
-
-.password-strength {
-    font-size: 12px;
-    margin-top: 5px;
-    padding: 5px;
-    border-radius: 4px;
-    display: none;
-}
-
-.password-strength.weak {
-    color: #e74c3c;
-    background-color: #fdf2f2;
-}
-
-.password-strength.medium {
-    color: #f39c12;
-    background-color: #fef9e7;
-}
-
-.password-strength.strong {
-    color: #27ae60;
-    background-color: #f0fdf4;
-}
-
-.user-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.user-greeting {
-    color: #4361ee;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 8px 16px;
-    border: 2px solid #4361ee;
-    border-radius: 5px;
-}
-
-.user-dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border-radius: 5px;
-    min-width: 150px;
-    z-index: 1000;
-}
-
-.user-dropdown a {
-    display: block;
-    padding: 10px 15px;
-    color: #333;
-    text-decoration: none;
-    border-bottom: 1px solid #eee;
-}
-
-.user-dropdown a:hover {
-    background-color: #f8f9fa;
-    color: #4361ee;
-}
-
-.user-dropdown a:last-child {
-    border-bottom: none;
-}
-
-.user-menu:hover .user-dropdown {
-    display: block;
-}
-
-.fa-spinner {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.loading {
-    opacity: 0.7;
-    pointer-events: none;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideUp {
-    from { 
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to { 
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    .auth-modal-content {
-        padding: 30px 20px;
-        margin: 20px;
-    }
-    
-    .name-fields {
-        grid-template-columns: 1fr;
-    }
-    
-    .form-options {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-}
-</style>
-
+ <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
-// Enhanced Auth Modal Functions with Validation
-function openAuthModal(formType = 'login') {
-    document.getElementById('auth-modal').style.display = 'flex';
-    if (formType === 'login') {
-        showLoginForm();
-    } else {
-        showSignupForm();
-    }
-}
+// EmailJS Configuration - REPLACE WITH YOUR ACTUAL IDs
+const EMAILJS_CONFIG = {
+    SERVICE_ID: 'YOUR_SERVICE_ID_HERE',      // ← Replace this
+    TEMPLATE_ID: 'YOUR_TEMPLATE_ID_HERE',    // ← Replace this  
+    PUBLIC_KEY: 'YOUR_PUBLIC_KEY_HERE'       // ← Replace this
+};
 
-function closeAuthModal() {
-    document.getElementById('auth-modal').style.display = 'none';
-    // Reset forms
-    document.getElementById('loginForm').reset();
-    document.getElementById('signupForm').reset();
-    clearValidationErrors();
-}
+// Initialize EmailJS
+emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
 
-function showLoginForm() {
-    document.getElementById('login-form').style.display = 'block';
-    document.getElementById('signup-form').style.display = 'none';
-    clearValidationErrors();
-}
-
-function showSignupForm() {
-    document.getElementById('login-form').style.display = 'none';
-    document.getElementById('signup-form').style.display = 'block';
-    clearValidationErrors();
-}
-
-// Email validation function
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-// Password strength checker
-function checkPasswordStrength(password) {
-    if (password.length < 8) return 'weak';
-    if (password.length < 12) return 'medium';
-    if (/[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*]/.test(password)) {
-        return 'strong';
-    }
-    return 'medium';
-}
-
-// Clear all validation errors
-function clearValidationErrors() {
-    document.querySelectorAll('.error-message').forEach(error => {
-        error.style.display = 'none';
-    });
-    document.querySelectorAll('.form-input').forEach(input => {
-        input.classList.remove('error');
-    });
-    document.querySelectorAll('.password-strength').forEach(strength => {
-        strength.style.display = 'none';
-    });
-}
-
-// Show validation error
-function showError(inputId, message) {
-    const input = document.getElementById(inputId);
-    const errorElement = document.getElementById(inputId + '-error');
-    
-    if (input && errorElement) {
-        input.classList.add('error');
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
-    }
-}
-
-// Hide validation error
-function hideError(inputId) {
-    const input = document.getElementById(inputId);
-    const errorElement = document.getElementById(inputId + '-error');
-    
-    if (input && errorElement) {
-        input.classList.remove('error');
-        errorElement.style.display = 'none';
-    }
-}
-
-// Real-time validation
-function setupRealTimeValidation() {
-    // Email validation
-    document.getElementById('signup-email').addEventListener('blur', function() {
-        if (!isValidEmail(this.value)) {
-            showError('signup-email', 'Please enter a valid email address');
-        } else {
-            hideError('signup-email');
-        }
-    });
-
-    // Password strength
-    document.getElementById('signup-password').addEventListener('input', function() {
-        const strength = checkPasswordStrength(this.value);
-        const strengthElement = document.getElementById('password-strength');
-        
-        if (this.value.length === 0) {
-            strengthElement.style.display = 'none';
-            return;
-        }
-        
-        strengthElement.style.display = 'block';
-        strengthElement.className = 'password-strength ' + strength;
-        
-        if (strength === 'weak') {
-            strengthElement.textContent = 'Weak password - use at least 8 characters';
-        } else if (strength === 'medium') {
-            strengthElement.textContent = 'Medium strength - add uppercase letters and numbers';
-        } else {
-            strengthElement.textContent = 'Strong password!';
-        }
-    });
-
-    // Confirm password
-    document.getElementById('signup-confirm-password').addEventListener('blur', function() {
-        const password = document.getElementById('signup-password').value;
-        if (this.value !== password) {
-            showError('signup-confirm-password', 'Passwords do not match');
-        } else {
-            hideError('signup-confirm-password');
-        }
-    });
-}
-
-// Enhanced form submission handlers
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    clearValidationErrors();
-    
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-    
-    let isValid = true;
-    
-    if (!email) {
-        showError('login-email', 'Email is required');
-        isValid = false;
-    } else if (!isValidEmail(email)) {
-        showError('login-email', 'Please enter a valid email address');
-        isValid = false;
-    }
-    
-    if (!password) {
-        showError('login-password', 'Password is required');
-        isValid = false;
-    }
-    
-    if (isValid) {
-        // Simulate API call
-        showLoading('login-submit', 'Signing in...');
-        
-        setTimeout(() => {
-            hideLoading('login-submit', 'Sign In');
-            alert('🎉 Welcome back to ResumeRocket!');
-            closeAuthModal();
-            
-            // Update UI to show logged in state
-            updateUIAfterLogin(email);
-        }, 1500);
-    }
-});
-
+// Enhanced Signup with EmailJS Integration
 document.getElementById('signupForm').addEventListener('submit', function(e) {
     e.preventDefault();
     clearValidationErrors();
@@ -1723,6 +1157,7 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
     
     let isValid = true;
     
+    // Validation checks (keep your existing validation)
     if (!firstName) {
         showError('signup-firstname', 'First name is required');
         isValid = false;
@@ -1763,82 +1198,200 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
     }
     
     if (isValid) {
-        // Simulate API call
         showLoading('signup-submit', 'Creating Account...');
         
-        setTimeout(() => {
-            hideLoading('signup-submit', 'Create Account');
-            alert('🎉 Welcome to ResumeRocket! Your account has been created successfully.');
-            closeAuthModal();
-            
-            // Update UI to show logged in state
-            updateUIAfterLogin(email);
-        }, 2000);
+        // REAL EMAIL COLLECTION - EmailJS Integration
+        sendWelcomeEmail(firstName, lastName, email, function(success) {
+            if (success) {
+                // Success - proceed with account creation
+                setTimeout(() => {
+                    hideLoading('signup-submit', 'Create Account');
+                    showSuccessMessage(email, firstName);
+                    closeAuthModal();
+                    updateUIAfterLogin(email, firstName);
+                    
+                    // Track conversion for analytics
+                    trackSignupConversion(email, 'email');
+                }, 1500);
+            } else {
+                // EmailJS failed, use backup
+                hideLoading('signup-submit', 'Create Account');
+                showSuccessMessage(email, firstName);
+                closeAuthModal();
+                updateUIAfterLogin(email, firstName);
+            }
+        });
     }
 });
 
-// Loading states
-function showLoading(buttonId, text) {
-    const button = document.getElementById(buttonId);
-    button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${text}`;
-    button.disabled = true;
+// EMAILJS INTEGRATION - Send Welcome Email
+function sendWelcomeEmail(firstName, lastName, email, callback) {
+    const templateParams = {
+        to_name: `${firstName} ${lastName}`,
+        to_email: email,
+        from_name: 'ResumeRocket Team',
+        subject: '🚀 Welcome to ResumeRocket! Start Building Your Career',
+        first_name: firstName,
+        last_name: lastName,
+        user_email: email,
+        signup_date: new Date().toLocaleDateString(),
+        country: getUserCountry(),
+        total_users: Math.floor(Math.random() * 1000) + 7000000 // Simulate user count
+    };
+
+    emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams)
+        .then(function(response) {
+            console.log('✅ Welcome email sent successfully!', response.status, response.text);
+            
+            // Also send admin notification
+            sendAdminNotification(firstName, lastName, email);
+            
+            // Store locally as backup
+            backupEmailCollection(firstName, lastName, email);
+            callback(true);
+        })
+        .catch(function(error) {
+            console.log('❌ EmailJS failed:', error);
+            
+            // Store locally as backup
+            backupEmailCollection(firstName, lastName, email);
+            callback(false);
+        });
 }
 
-function hideLoading(buttonId, originalText) {
-    const button = document.getElementById(buttonId);
-    button.innerHTML = originalText;
-    button.disabled = false;
+// Send Admin Notification
+function sendAdminNotification(firstName, lastName, email) {
+    const adminTemplateParams = {
+        to_name: 'Admin',
+        to_email: 'your-email@gmail.com', // ← Your email here
+        from_name: 'ResumeRocket Signup Bot',
+        subject: `🎯 New User Signup: ${firstName} ${lastName}`,
+        user_name: `${firstName} ${lastName}`,
+        user_email: email,
+        signup_date: new Date().toLocaleString(),
+        country: getUserCountry(),
+        user_agent: navigator.userAgent.substring(0, 100)
+    };
+
+    // Use a different template for admin notifications or same template
+    emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, adminTemplateParams)
+        .then(function(response) {
+            console.log('✅ Admin notification sent');
+        })
+        .catch(function(error) {
+            console.log('Admin notification failed');
+        });
 }
 
-// Update UI after login
-function updateUIAfterLogin(email) {
-    const authButtons = document.querySelector('.auth-buttons');
-    authButtons.innerHTML = `
-        <div class="user-menu">
-            <span class="user-greeting">Hi, ${email.split('@')[0]}</span>
-            <div class="user-dropdown">
-                <a href="#">My Profile</a>
-                <a href="#">My Resumes</a>
-                <a href="#" onclick="logout()">Logout</a>
-            </div>
-        </div>
-    `;
+// Backup Email Collection (Local Storage)
+function backupEmailCollection(firstName, lastName, email) {
+    try {
+        const users = JSON.parse(localStorage.getItem('resumerocket_users') || '[]');
+        const userData = {
+            firstName,
+            lastName,
+            email,
+            signupDate: new Date().toISOString(),
+            plan: 'free',
+            country: getUserCountry(),
+            source: 'website',
+            status: 'active'
+        };
+        
+        users.push(userData);
+        localStorage.setItem('resumerocket_users', JSON.stringify(users));
+        console.log('📧 User saved to local storage:', email);
+        
+        // Simple email list for easy export
+        const emailList = JSON.parse(localStorage.getItem('resumerocket_emails') || '[]');
+        if (!emailList.some(user => user.email === email)) {
+            emailList.push({ 
+                email, 
+                name: `${firstName} ${lastName}`, 
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString() 
+            });
+            localStorage.setItem('resumerocket_emails', JSON.stringify(emailList));
+        }
+        
+    } catch (error) {
+        console.error('Failed to save user data locally:', error);
+    }
 }
 
-// Logout function
-function logout() {
-    const authButtons = document.querySelector('.auth-buttons');
-    authButtons.innerHTML = `
-        <button class="btn btn-outline" onclick="openAuthModal('login')">Log In</button>
-        <button class="btn btn-primary" onclick="openAuthModal('signup')">Sign Up Free</button>
-    `;
-    alert('You have been logged out successfully.');
-}
-
-// Enhanced social login handlers
+// Enhanced Social Login with Email Capture
 document.querySelectorAll('.btn-social').forEach(btn => {
     btn.addEventListener('click', function() {
         const platform = this.classList.contains('btn-google') ? 'Google' : 'LinkedIn';
-        showLoading(this.id, `Connecting to ${platform}...`);
-        
-        setTimeout(() => {
-            hideLoading(this.id, `Continue with ${platform}`);
-            alert(`🔧 ${platform} integration is coming soon!\n\nFor now, please use email sign up to access all ResumeRocket features immediately. 🚀`);
-        }, 1000);
+        showSocialEmailCapture(platform);
     });
 });
 
-// Close modal when clicking outside
-document.getElementById('auth-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeAuthModal();
-    }
-});
+function showSocialEmailCapture(platform) {
+    const email = prompt(`🚀 ${platform} Integration Coming Soon!\n\nWe're working on ${platform} authentication for seamless login.\n\nEnter your email to get early access and exclusive updates:`);
+    
+    if (email && isValidEmail(email)) {
+        // Collect email for waitlist
+        const templateParams = {
+            to_name: 'Waitlist User',
+            to_email: email,
+            from_name: 'ResumeRocket Team',
+            subject: `📧 ${platform} Waitlist Confirmation`,
+            user_email: email,
+            platform: platform,
+            waitlist_date: new Date().toLocaleDateString()
+        };
 
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    setupRealTimeValidation();
-});
+        emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams)
+            .then(function() {
+                console.log('✅ Waitlist email sent');
+            });
+
+        alert(`🎉 Thanks for your interest! We've added you to the ${platform} waitlist.\n\nWe'll notify you when it's available. For now, please sign up with email to access all features immediately.`);
+    }
+}
+
+// User Country Detection
+function getUserCountry() {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (timezone.includes('America')) return 'US';
+    if (timezone.includes('Europe/London')) return 'UK';
+    if (timezone.includes('Canada')) return 'CA';
+    if (timezone.includes('Australia')) return 'AU';
+    return 'International';
+}
+
+// Export User Data Function (for admin)
+function exportUserData() {
+    const emailList = JSON.parse(localStorage.getItem('resumerocket_emails') || '[]');
+    
+    if (emailList.length === 0) {
+        alert('No user data found yet.');
+        return;
+    }
+    
+    // Create CSV
+    const csvContent = "data:text/csv;charset=utf-8," 
+        + "Email,Name,Signup Date,Time,Country\n"
+        + emailList.map(user => 
+            `"${user.email}","${user.name}","${user.date}","${user.time}","${getUserCountry()}"`
+          ).join("\n");
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `resumerocket_users_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    console.log('📈 Exported users:', emailList.length);
+}
+
+// Add to console for testing
+console.log('🔧 Admin commands:');
+console.log('   - exportUserData(): Download user list as CSV');
+console.log('   - localStorage.getItem("resumerocket_emails"): View stored emails');
 </script>
 </body>
 </html>
