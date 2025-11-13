@@ -142,15 +142,6 @@
             color: #667eea;
             text-decoration: none;
         }
-        
-        .debug-info {
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-size: 12px;
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -212,31 +203,58 @@
         </form>
 
         <div id="message" class="message"></div>
-        <div id="debug-info" class="debug-info"></div>
     </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
     <!-- EmailJS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <script>
-        // Initialize EmailJS with your Public Key
+        // Firebase Configuration - USE YOUR OWN CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyC_3flhda6JQ3p_6j2LpLzXvBvG1Q2nT5w",
+            authDomain: "resume-rocket-7f33d6a.firebaseapp.com",
+            projectId: "resume-rocket-7f33d6a",
+            storageBucket: "resume-rocket-7f33d6a.firebasestorage.app",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef123456"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Initialize EmailJS
         emailjs.init("zr3AtXE9_fnkXa5bV");
-        
+
+        // Auth State Listener
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                showMessage('Welcome back! Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 2000);
+            }
+        });
+
         // Tab switching
         function showTab(tabName) {
-            // Update tabs
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             event.target.classList.add('active');
             
-            // Update forms
             document.querySelectorAll('.form').forEach(form => {
                 form.classList.remove('active');
             });
             document.getElementById(tabName + '-form').classList.add('active');
             
-            // Clear messages
             hideMessage();
         }
 
@@ -252,160 +270,85 @@
             document.getElementById('message').style.display = 'none';
         }
 
-        function showDebugInfo(info) {
-            const debugDiv = document.getElementById('debug-info');
-            debugDiv.innerHTML = '<strong>Debug Info:</strong> ' + info;
-            debugDiv.style.display = 'block';
-        }
-
-        // Simple user storage (using localStorage) - IMPROVED VERSION
-        function getUsers() {
-            try {
-                const users = localStorage.getItem('resumeRocketUsers');
-                console.log('Retrieved users:', users);
-                return users ? JSON.parse(users) : [];
-            } catch (error) {
-                console.error('Error getting users:', error);
-                return [];
-            }
-        }
-
-        function saveUser(user) {
-            try {
-                const users = getUsers();
-                users.push(user);
-                localStorage.setItem('resumeRocketUsers', JSON.stringify(users));
-                console.log('Saved user:', user.email);
-                console.log('All users now:', users);
-                return true;
-            } catch (error) {
-                console.error('Error saving user:', error);
-                return false;
-            }
-        }
-
-        function findUser(email) {
-            const users = getUsers();
-            const user = users.find(user => user.email === email);
-            console.log('Looking for user:', email, 'Found:', user);
-            return user;
-        }
-
-        // Login form handler - IMPROVED
-        document.getElementById('login-form').addEventListener('submit', function(e) {
+        // Login form handler - USING FIREBASE AUTH
+        document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
-            console.log('Login attempt:', email);
-            
-            const user = findUser(email);
-            if (user) {
-                console.log('User found, checking password...');
-                if (user.password === password) {
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
                     showMessage('Login successful! Redirecting...', 'success');
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    showDebugInfo('User logged in: ' + email);
-                    
-                    // Redirect to dashboard
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1500);
-                } else {
-                    showMessage('Invalid password', 'error');
-                    showDebugInfo('Password mismatch for: ' + email);
-                }
-            } else {
-                showMessage('No account found with this email', 'error');
-                showDebugInfo('No user found with email: ' + email);
-            }
+                })
+                .catch((error) => {
+                    showMessage(error.message, 'error');
+                });
         });
 
-        // Signup form handler - IMPROVED
-        document.getElementById('signup-form').addEventListener('submit', function(e) {
+        // Sign Up form handler - USING FIREBASE AUTH
+        document.getElementById('signup-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('signup-name').value;
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
             const confirm = document.getElementById('signup-confirm').value;
 
-            console.log('Signup attempt:', email);
-
             if (password !== confirm) {
                 showMessage('Passwords do not match', 'error');
                 return;
             }
 
-            if (findUser(email)) {
-                showMessage('User already exists with this email', 'error');
-                return;
-            }
-
-            const user = {
-                name: name,
-                email: email,
-                password: password,
-                createdAt: new Date().toISOString()
-            };
-
-            if (saveUser(user)) {
-                showMessage('Account created successfully!', 'success');
-                showDebugInfo('User created: ' + email);
-                
-                // Try to send welcome email (but don't block on failure)
-                try {
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Save user profile to Firestore
+                    return db.collection('users').doc(userCredential.user.uid).set({
+                        name: name,
+                        email: email,
+                        createdAt: new Date()
+                    });
+                })
+                .then(() => {
+                    showMessage('Account created successfully!', 'success');
+                    
+                    // Send welcome email
                     emailjs.send('service_7f33d6a', 'template_ux1mbum', {
                         to_name: name,
                         to_email: email,
-                        message: 'Welcome to Resume Rocket! Your account has been created successfully.'
-                    }).then(() => {
-                        console.log('Welcome email sent to:', email);
-                    }).catch(emailError => {
-                        console.warn('Email failed to send:', emailError);
-                        // Don't show error to user - email is optional
+                        user_email: email, // ADD THIS LINE - VISITOR'S EMAIL
+                        message: `Welcome to Resume Rocket! Your account (${email}) has been created successfully. We'll contact you at this email address.`
+                    })
+                    .then(() => {
+                        console.log('Welcome email sent');
+                    })
+                    .catch((emailError) => {
+                        console.log('Email error:', emailError);
                     });
-                } catch (emailError) {
-                    console.warn('Email error:', emailError);
-                }
 
-                // Auto-switch to login after 3 seconds
-                setTimeout(() => {
-                    showTab('login');
-                    document.getElementById('login-email').value = email;
-                    document.getElementById('login-password').value = '';
-                }, 3000);
-            } else {
-                showMessage('Error creating account. Please try again.', 'error');
-            }
+                    // Auto login after success
+                    setTimeout(() => {
+                        const email = document.getElementById('signup-email').value;
+                        const password = document.getElementById('signup-password').value;
+                        auth.signInWithEmailAndPassword(email, password);
+                    }, 2000);
+                })
+                .catch((error) => {
+                    showMessage(error.message, 'error');
+                });
         });
 
         // Forgot password handler
-        document.getElementById('forgot-form').addEventListener('submit', function(e) {
+        document.getElementById('forgot-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('forgot-email').value;
 
-            const user = findUser(email);
-            if (user) {
-                showMessage('Password reset instructions sent to your email', 'success');
-                showDebugInfo('Password reset for: ' + email);
-                
-                // In a real app, you'd send an email with reset link
-                // For now, just show the password (for testing)
-                setTimeout(() => {
-                    showMessage('Your password is: ' + user.password, 'success');
-                }, 2000);
-            } else {
-                showMessage('No account found with this email', 'error');
-            }
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    showMessage('Password reset email sent!', 'success');
+                })
+                .catch((error) => {
+                    showMessage(error.message, 'error');
+                });
         });
-
-        // Check if user is already logged in
-        if (localStorage.getItem('currentUser')) {
-            window.location.href = 'dashboard.html';
-        }
-
-        // Debug: Show current users in console
-        console.log('Current users in storage:', getUsers());
     </script>
 </body>
 </html>
