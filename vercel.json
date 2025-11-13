@@ -8,8 +8,16 @@
   ],
   "routes": [
     {
-      "src": "/temple-contact.html",
+      "src": "/contact",
       "dest": "/temple-contact.html"
+    },
+    {
+      "src": "/login", 
+      "dest": "/login.html"
+    },
+    {
+      "src": "/app",
+      "dest": "/app.html"
     },
     {
       "src": "/(.*)",
