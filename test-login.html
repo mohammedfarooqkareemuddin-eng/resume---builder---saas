@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Login</title>
+    <style>
+        body { font-family: Arial; background: #667eea; padding: 50px; }
+        .container { background: white; padding: 30px; border-radius: 10px; max-width: 400px; margin: 0 auto; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; }
+        button { background: #667eea; color: white; border: none; padding: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>TEST LOGIN</h2>
+        
+        <div>
+            <h3>Sign Up</h3>
+            <input type="text" id="name" placeholder="Name">
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="signup()">Sign Up</button>
+        </div>
+        
+        <div>
+            <h3>Login</h3>
+            <input type="email" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="login()">Login</button>
+        </div>
+        
+        <div id="result" style="margin-top: 20px; padding: 10px; background: #f0f0f0;"></div>
+    </div>
+
+    <script>
+        function signup() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if(!name || !email || !password) {
+                showResult('Please fill all fields', 'red');
+                return;
+            }
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            if(users.find(u => u.email === email)) {
+                showResult('User already exists!', 'red');
+                return;
+            }
+            
+            users.push({name, email, password});
+            localStorage.setItem('users', JSON.stringify(users));
+            showResult('Account created! Now try login.', 'green');
+        }
+        
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if(user) {
+                showResult('SUCCESS! Login works! User: ' + user.name, 'green');
+            } else {
+                showResult('Login failed - wrong email/password', 'red');
+            }
+        }
+        
+        function showResult(message, color) {
+            document.getElementById('result').innerHTML = message;
+            document.getElementById('result').style.color = color;
+        }
+    </script>
+</body>
+</html>
