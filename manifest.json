@@ -1,0 +1,10 @@
+{
+  "name": "Resume Rocket",
+  "short_name": "ResumeRocket",
+  "description": "Create professional resumes in minutes",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "icons": []
+}
