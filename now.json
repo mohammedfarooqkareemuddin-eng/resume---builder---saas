@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index-pwa.html"
+    },
+    {
+      "src": "/contact",
+      "dest": "/temple-contact-form.html"
+    },
+    {
+      "src": "/login",
+      "dest": "/perfect-login.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index-pwa.html"
+    }
+  ]
+}
