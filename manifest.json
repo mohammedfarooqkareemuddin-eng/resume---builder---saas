@@ -1,12 +1,25 @@
-"icons": [
-  {
-    "src": "icons/icon-192x192.svg",
-    "sizes": "192x192",
-    "type": "image/svg+xml"
-  },
-  {
-    "src": "icons/icon-512x512.svg",
-    "sizes": "512x512",
-    "type": "image/svg+xml"
-  }
-]
+{
+  "name": "ResumeRocket - Professional Resume Builder",
+  "short_name": "ResumeRocket", 
+  "description": "Create professional resumes in minutes. Launch your career with beautiful, ATS-friendly templates.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4361ee",
+  "theme_color": "#4361ee",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512x512.svg", 
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "education"]
+}
