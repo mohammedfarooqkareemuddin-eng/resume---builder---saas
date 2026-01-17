@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 25mm;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 20px;
+        }
+        .name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            color: #666;
+            font-size: 14px;
+        }
+        .personal-statement {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #2c3e50;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .experience-item {
+            margin-bottom: 20px;
+        }
+        .job-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .company {
+            color: #666;
+        }
+        .dates {
+            float: right;
+            color: #888;
+        }
+        .personal-details {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .personal-details p {
+            margin: 5px 0;
+        }
+        @page {
+            size: A4;
+            margin: 25mm;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="name">{{name}}</div>
+        <div class="contact-info">
+            {{email}} | {{phone}} | UK CV Format
+        </div>
+    </div>
+    
+    <div class="personal-statement">
+        <strong>Personal Statement:</strong> {{summary}}
+    </div>
+    
+    <div class="personal-details">
+        {{personalDetails}}
+    </div>
+    
+    <div class="section">
+        <div class="section-title">EDUCATION</div>
+        {{education}}
+    </div>
+    
+    <div class="section">
+        <div class="section-title">PROFESSIONAL EXPERIENCE</div>
+        {{experience}}
+    </div>
+    
+    <div class="section">
+        <div class="section-title">SKILLS</div>
+        <p>{{skills}}</p>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">REFERENCES</div>
+        <p>Available upon request</p>
+    </div>
+</body>
+</html>
