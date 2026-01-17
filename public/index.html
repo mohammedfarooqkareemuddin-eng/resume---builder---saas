@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Generator | Global CV Templates</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-globe-americas"></i> Global Resume Generator</h1>
+            <p class="subtitle">Generate country-specific resumes & CVs instantly</p>
+        </header>
+
+        <main class="main-content">
+            <section class="intro">
+                <h2><i class="fas fa-rocket"></i> Create Your Perfect Resume</h2>
+                <p>This tool generates resumes tailored to specific country formats. Choose your target country, fill in your details, and download a professionally formatted resume.</p>
+            </section>
+
+            <div class="app-container">
+                <div class="form-section">
+                    <h3><i class="fas fa-user-edit"></i> Your Information</h3>
+                    <form id="resumeForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" rows="2" placeholder="123 Main St, City, Country"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="summary">Professional Summary</label>
+                            <textarea id="summary" rows="4" placeholder="Experienced professional with expertise in..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience">Work Experience</label>
+                            <textarea id="experience" rows="6" placeholder="• Senior Developer at Tech Corp (2020-2023)&#10;• Developed web applications using modern frameworks"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="education">Education</label>
+                            <textarea id="education" rows="4" placeholder="• BSc in Computer Science, University Name (2016-2020)"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="skills">Skills</label>
+                            <textarea id="skills" rows="3" placeholder="JavaScript, React, Node.js, Project Management"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country">Select Country Format *</label>
+                            <select id="country" required>
+                                <option value="">Choose a country...</option>
+                                <option value="usa">United States (Resume)</option>
+                                <option value="uk">United Kingdom (CV)</option>
+                                <option value="canada">Canada (Resume)</option>
+                                <option value="germany">Germany (Lebenslauf)</option>
+                                <option value="australia">Australia (CV)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-generate">
+                            <i class="fas fa-file-download"></i> Generate Resume
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="preview-section">
+                    <h3><i class="fas fa-eye"></i> Preview & Download</h3>
+                    <div class="preview-container">
+                        <iframe id="previewFrame" title="Resume Preview"></iframe>
+                    </div>
+                    <div class="preview-actions">
+                        <button id="downloadBtn" class="btn-download" disabled>
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                        <button id="printBtn" class="btn-print" disabled>
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                    </div>
+                    
+                    <div class="country-info" id="countryInfo">
+                        <h4><i class="fas fa-info-circle"></i> Country Format Guidelines</h4>
+                        <p>Select a country to see specific formatting guidelines.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="templates-section">
+                <h2><i class="fas fa-palette"></i> Available Templates</h2>
+                <div class="templates-grid">
+                    <div class="template-card" data-country="usa">
+                        <div class="template-flag">🇺🇸</div>
+                        <h4>USA Resume</h4>
+                        <p>Concise, 1-page maximum. Focus on achievements and keywords.</p>
+                    </div>
+                    <div class="template-card" data-country="uk">
+                        <div class="template-flag">🇬🇧</div>
+                        <h4>UK CV</h4>
+                        <p>2 pages standard. Include personal statement and detailed career history.</p>
+                    </div>
+                    <div class="template-card" data-country="canada">
+                        <div class="template-flag">🇨🇦</div>
+                        <h4>Canada Resume</h4>
+                        <p>Bilingual options. Emphasize competencies and volunteer work.</p>
+                    </div>
+                    <div class="template-card" data-country="germany">
+                        <div class="template-flag">🇩🇪</div>
+                        <h4>Germany Lebenslauf</h4>
+                        <p>Photo included. Chronological format with exact dates.</p>
+                    </div>
+                    <div class="template-card" data-country="australia">
+                        <div class="template-flag">🇦🇺</div>
+                        <h4>Australia CV</h4>
+                        <p>2-4 pages. Include key selection criteria for government roles.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <p>Global Resume Generator &copy; 2023 | Built with Node.js & Express</p>
+            <p class="footer-links">
+                <a href="#"><i class="fab fa-github"></i> GitHub</a> | 
+                <a href="#"><i class="fas fa-question-circle"></i> Help</a> | 
+                <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+            </p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
