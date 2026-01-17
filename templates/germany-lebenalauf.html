@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 25mm;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .photo-container {
+            position: absolute;
+            right: 25mm;
+            top: 25mm;
+            width: 120px;
+            height: 160px;
+            border: 1px solid #ddd;
+        }
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 3px;
+        }
+        .personal-details {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .personal-details p {
+            margin: 5px 0;
+        }
+        .experience-item {
+            margin-bottom: 15px;
+        }
+        .job-title {
+            font-weight: bold;
+        }
+        .company {
+            color: #666;
+        }
+        .dates {
+            float: right;
+        }
+        @page {
+            size: A4;
+            margin: 25mm;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="name">{{name}}</div>
+        <div class="contact-info">
+            {{email}} | {{phone}} | Lebenslauf
+        </div>
+    </div>
+    
+    {{photoSection}}
+    
+    <div class="personal-details">
+        {{personalDetails}}
+    </div>
+    
+    <div class="section">
+        <div class="section-title">BERUFSERFAHRUNG</div>
+        {{experience}}
+    </div>
+    
+    <div class="section">
+        <div class="section-title">AUSBILDUNG</div>
+        {{education}}
+    </div>
+    
+    <div class="section">
+        <div class="section-title">KENNTNISSE UND FÄHIGKEITEN</div>
+        <p>{{skills}}</p>
+    </div>
+</body>
+</html>
