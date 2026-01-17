@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+        }
+        .header {
+            border-bottom: 3px solid #00843D;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .name {
+            font-size: 30px;
+            font-weight: bold;
+            color: #002664;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            color: #666;
+            font-size: 14px;
+        }
+        .australia-note {
+            background: #E8F5E9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-left: 4px solid #00843D;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #002664;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .experience-item {
+            margin-bottom: 20px;
+        }
+        .job-title {
+            font-weight: bold;
+            color: #002664;
+        }
+        .company {
+            color: #666;
+        }
+        .dates {
+            float: right;
+            color: #888;
+        }
+        .achievements {
+            margin-left: 20px;
+            list-style-type: disc;
+        }
+        .key-selection-criteria {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="name">{{name}}</div>
+        <div class="contact-info">
+            {{email}} | {{phone}} | Australian CV Format
+        </div>
+    </div>
+    
+    <div class="australia-note">
+        <strong>Australian CV Note:</strong> Comprehensive CVs (2-4 pages) are standard. 
+        Include key selection criteria for government roles.
+    </div>
+    
+    <div class="section">
+        <div class="section-title">PROFESSIONAL SUMMARY</div>
+        <p>{{summary}}</p>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">EMPLOYMENT HISTORY</div>
+        {{experience}}
+    </div>
+    
+    <div class="section">
+        <div class="section-title">EDUCATION & QUALIFICATIONS</div>
+        {{education}}
+    </div>
+    
+    <div class="section">
+        <div class="section-title">PROFESSIONAL SKILLS</div>
+        <p>{{skills}}</p>
+    </div>
+    
+    <div class="key-selection-criteria">
+        <div class="section-title">KEY SELECTION CRITERIA</div>
+        <p><em>Addressing the key selection criteria is essential for Australian government roles. 
+        Each criterion should be addressed in separate sections with specific examples.</em></p>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">REFEREES</div>
+        <p>Available upon request - Australian referees preferred</p>
+    </div>
+</body>
+</html>
