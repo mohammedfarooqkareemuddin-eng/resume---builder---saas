@@ -1,161 +1,158 @@
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const puppeteer = require('puppeteer');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.static('public'));
 
-// Load country rules
-const countryRules = require('./countries/country-rules.json');
+// Serve templates
+app.use('/templates', express.static('templates'));
 
-// API Endpoint: Get country formats
-app.get('/api/countries', (req, res) => {
+// Test route
+app.get('/', (req, res) => {
     res.json({
-        success: true,
-        countries: countryRules
+        message: 'Resume Builder API - By Md Farooq',
+        status: 'SUCCESS - Resume Generator Working!',
+        endpoints: ['GET /', 'POST /generate', 'GET /templates']
     });
 });
 
-// API Endpoint: Generate resume
-app.post('/api/generate-resume', async (req, res) => {
+// Resume generation endpoint
+app.post('/generate', (req, res) => {
     try {
-        const { userData, country, template } = req.body;
+        const { name, email, phone, address, summary, experience, education, skills, country } = req.body;
+        
+        // Validate required fields
+        if (!name || !email || !country) {
+            return res.status(400).json({
+                success: false,
+                error: 'Missing required fields: name, email, and country are required'
+            });
+        }
+        
+        // Load country rules
+        let countryRules = {};
+        try {
+            countryRules = require('./countries/country-rules.json');
+        } catch (error) {
+            console.log('Country rules not found, using defaults');
+        }
+        
+        // Select template based on country
+        let templateFile;
+        switch(country) {
+            case 'usa':
+                templateFile = 'usa-resume.html';
+                break;
+            case 'uk':
+                templateFile = 'uk-cv.html';
+                break;
+            case 'canada':
+                templateFile = 'canada-resume.html';
+                break;
+            case 'germany':
+                templateFile = 'germany-lebenslauf.html';
+                break;
+            case 'australia':
+                templateFile = 'australia-cv.html';
+                break;
+            default:
+                templateFile = 'usa-resume.html';
+        }
+        
+        // Read the selected template
+        const templatePath = path.join(__dirname, 'templates', templateFile);
+        let html = fs.readFileSync(templatePath, 'utf8');
         
         // Get country-specific rules
-        const countryRule = countryRules[country] || countryRules['usa'];
+        const countryRule = countryRules[country] || {};
         
-        // Generate HTML with country-specific template
-        const htmlContent = generateResumeHTML(userData, countryRule, template);
+        // Format experience
+        let formattedExperience = '';
+        if (experience) {
+            const expItems = experience.split('\n').filter(item => item.trim());
+            formattedExperience = expItems.map(item => {
+                return `<div class="experience-item"><div class="job-title">${item}</div></div>`;
+            }).join('');
+        }
         
-        // Generate PDF using Puppeteer
-        const pdfBuffer = await generatePDF(htmlContent, countryRule);
+        // Format education
+        let formattedEducation = '';
+        if (education) {
+            const eduItems = education.split('\n').filter(item => item.trim());
+            formattedEducation = eduItems.map(item => `<p>• ${item}</p>`).join('');
+        }
         
-        // Send PDF as response
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', `attachment; filename=${userData.name}-${country}-resume.pdf`);
-        res.send(pdfBuffer);
+        // Replace placeholders in template
+        html = html.replace(/{{name}}/g, name || 'John Doe')
+                   .replace(/{{email}}/g, email || 'john@example.com')
+                   .replace(/{{phone}}/g, phone || '+1 (555) 123-4567')
+                   .replace(/{{address}}/g, address || '')
+                   .replace(/{{summary}}/g, summary || 'Experienced professional with strong skills in relevant field.')
+                   .replace(/{{experience}}/g, formattedExperience || '<p>No experience provided</p>')
+                   .replace(/{{education}}/g, formattedEducation || '<p>No education provided</p>')
+                   .replace(/{{skills}}/g, skills || 'JavaScript, React, Node.js, Project Management')
+                   .replace(/{{personalDetails}}/g, address ? `<p><strong>Address:</strong> ${address}</p>` : '')
+                   .replace(/{{photoSection}}/g, '');
+        
+        // Special handling for Germany (photo)
+        if (country === 'germany') {
+            const photoSection = '<div class="photo-container"><img src="https://via.placeholder.com/120x160/e0e0e0/333?text=Professional+Photo" alt="Professional Photo"></div>';
+            html = html.replace(/{{photoSection}}/g, photoSection);
+        }
+        
+        res.json({ 
+            success: true, 
+            html: html, 
+            country: country, 
+            template: templateFile,
+            message: 'Resume generated successfully'
+        });
         
     } catch (error) {
         console.error('Error generating resume:', error);
-        res.status(500).json({ success: false, error: error.message });
+        res.status(500).json({ 
+            success: false, 
+            error: 'Failed to generate resume', 
+            message: error.message 
+        });
     }
 });
 
-// Function to generate HTML
-function generateResumeHTML(userData, countryRule, templateType) {
-    // Load template based on country
-    let template = '';
-    
-    switch(countryRule.countryCode) {
-        case 'usa':
-            template = fs.readFileSync('./templates/usa-resume.html', 'utf8');
-            break;
-        case 'uk':
-            template = fs.readFileSync('./templates/uk-cv.html', 'utf8');
-            break;
-        case 'canada':
-            template = fs.readFileSync('./templates/canada-resume.html', 'utf8');
-            break;
-        case 'germany':
-            template = fs.readFileSync('./templates/germany-lebenslauf.html', 'utf8');
-            break;
-        case 'australia':
-            template = fs.readFileSync('./templates/australia-cv.html', 'utf8');
-            break;
-        default:
-            template = fs.readFileSync('./templates/usa-resume.html', 'utf8');
-    }
-    
-    // Replace placeholders with actual data
-    return template
-        .replace(/{{name}}/g, userData.name || '')
-        .replace(/{{email}}/g, userData.email || '')
-        .replace(/{{phone}}/g, userData.phone || '')
-        .replace(/{{summary}}/g, userData.summary || '')
-        .replace(/{{experience}}/g, formatExperience(userData.experience, countryRule))
-        .replace(/{{education}}/g, formatEducation(userData.education, countryRule))
-        .replace(/{{skills}}/g, userData.skills || '')
-        .replace(/{{countryName}}/g, countryRule.countryName)
-        .replace(/{{photoSection}}/g, countryRule.includePhoto ? 
-            `<div class="photo-section"><img src="${userData.photo || ''}" alt="Profile Photo"></div>` : '')
-        .replace(/{{personalDetails}}/g, formatPersonalDetails(userData, countryRule));
-}
+// Get available templates
+app.get('/templates', (req, res) => {
+    const templates = [
+        { id: 'usa', name: 'USA Resume', file: 'usa-resume.html' },
+        { id: 'uk', name: 'UK CV', file: 'uk-cv.html' },
+        { id: 'canada', name: 'Canada Resume', file: 'canada-resume.html' },
+        { id: 'germany', name: 'Germany Lebenslauf', file: 'germany-lebenslauf.html' },
+        { id: 'australia', name: 'Australia CV', file: 'australia-cv.html' }
+    ];
+    res.json({ success: true, templates });
+});
 
-// Function to generate PDF
-async function generatePDF(htmlContent, countryRule) {
-    const browser = await puppeteer.launch({
-        headless: 'new',
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+// Health check
+app.get('/health', (req, res) => {
+    res.json({ 
+        status: 'healthy', 
+        timestamp: new Date().toISOString(),
+        service: 'Resume Generator API'
     });
-    
-    const page = await browser.newPage();
-    
-    // Set page size based on country rules
-    await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
-    
-    // Generate PDF with country-specific settings
-    const pdf = await page.pdf({
-        format: countryRule.pageSize || 'A4',
-        margin: countryRule.margins || { top: '20mm', right: '20mm', bottom: '20mm', left: '20mm' },
-        printBackground: true
-    });
-    
-    await browser.close();
-    return pdf;
-}
+});
 
-// Helper functions
-function formatExperience(experience, countryRule) {
-    if (!experience) return '';
-    
-    const experiences = Array.isArray(experience) ? experience : [experience];
-    let html = '<div class="experience-section">';
-    
-    experiences.forEach(exp => {
-        html += `
-        <div class="experience-item">
-            <h3>${exp.title || ''}</h3>
-            <p class="company">${exp.company || ''} | ${exp.dates || ''}</p>
-            <p>${exp.description || ''}</p>
-        </div>`;
-    });
-    
-    html += '</div>';
-    return html;
-}
-
-function formatEducation(education, countryRule) {
-    // Similar formatting for education
-    return education || '';
-}
-
-function formatPersonalDetails(userData, countryRule) {
-    let details = '';
-    
-    if (countryRule.includeDateOfBirth && userData.dateOfBirth) {
-        details += `<p><strong>Date of Birth:</strong> ${userData.dateOfBirth}</p>`;
-    }
-    
-    if (countryRule.includeNationality && userData.nationality) {
-        details += `<p><strong>Nationality:</strong> ${userData.nationality}</p>`;
-    }
-    
-    if (countryRule.includeMaritalStatus && userData.maritalStatus) {
-        details += `<p><strong>Marital Status:</strong> ${userData.maritalStatus}</p>`;
-    }
-    
-    return details;
-}
-
+// Start server
 app.listen(PORT, () => {
-    console.log(`🚀 ResumeRocket Server running on port ${PORT}`);
-    console.log(`🌍 Country-specific formats enabled for: ${Object.keys(countryRules).join(', ')}`);
+    console.log(`✅ Resume Generator Server running on port ${PORT}`);
+    console.log(`🌐 API available at: http://localhost:${PORT}`);
+    console.log(`📄 Endpoints:`);
+    console.log(`   GET  /           - API info`);
+    console.log(`   POST /generate   - Generate resume`);
+    console.log(`   GET  /templates  - List templates`);
+    console.log(`   GET  /health     - Health check`);
 });
