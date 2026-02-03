@@ -988,23 +988,80 @@
         
         let selectedTemplate = 'modern';
 
-        function startResumeBuilder(template) {
-            console.log("🚀 Starting resume builder for:", template);
-            selectedTemplate = template;
-            
-            // Hide all main page sections
-            document.querySelectorAll('section, header, footer').forEach(element => {
-                element.style.display = 'none';
-            });
-            
-            // Show the back button
-            document.querySelector('.back-btn').style.display = 'block';
-            
-            // Show the selected template form
-            showTemplateForm(template);
-        }
+        
+     
 
-        function showTemplateForm(template) {
+        function generatePDF() {
+    console.log("📄 Generating resume via API for:", selectedTemplate);
+    const formData = getFormData(selectedTemplate);
+    
+    // Show loading
+    const button = document.querySelector('#downloadBtn') || event.target;
+    const originalText = button.textContent;
+    button.textContent = "⏳ Generating...";
+    button.disabled = true;
+    
+    // Call your backend API
+    fetch('/api/generate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            template: selectedTemplate,
+            ...formData,
+            timestamp: new Date().toISOString()
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("✅ API Response:", data);
+        
+        if (data.success) {
+            // Download the resume
+            const resumeContent = generateTemplateResume(selectedTemplate, formData);
+            const blob = new Blob([resumeContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${formData.name}-${selectedTemplate}-resume.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            alert(`✅ ${data.message}\n\nDownloading your resume now!`);
+        } else {
+            alert(`❌ ${data.message || 'Failed to generate resume'}`);
+        }
+    })
+    .catch(error => {
+        console.error("❌ API Error:", error);
+        alert(`❌ Connection error: ${error.message}\n\nUsing offline mode...`);
+        
+        // Fallback to offline mode
+        const resumeContent = generateTemplateResume(selectedTemplate, formData);
+        const blob = new Blob([resumeContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${formData.name}-${selectedTemplate}-resume.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        alert('✅ Resume downloaded (offline mode)');
+    })
+    .finally(() => {
+        // Restore button
+        button.textContent = originalText;
+        button.disabled = false;
+    });
+} showTemplateForm(template) {
             console.log("📝 Showing form for:", template);
             
             // Hide all template forms
@@ -1025,17 +1082,7 @@
         function generatePDF() {
             console.log("📄 Generating resume for:", selectedTemplate);
             const formData = getFormData(selectedTemplate);
-            const resumeContent = generateTemplateResume(selectedTemplate, formData);
-            
-            // Create and download the file
-            const blob = new Blob([resumeContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${formData.name}-${selectedTemplate}-resume.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            const resumeContent = generateTemplate
             
             alert(`✅ ${selectedTemplate.charAt(0).toUpperCase() + selectedTemplate.slice(1)} Resume Downloaded!\nCheck your downloads folder.`);
         }
@@ -1046,34 +1093,12 @@
                     name: document.getElementById('modern-name').value || 'Your Name',
                     email: document.getElementById('modern-email').value || 'email@example.com',
                     phone: document.getElementById('modern-phone').value || '(123) 456-7890',
-                    summary: document.getElementById('modern-summary').value || 'Professional summary',
-                    experience: document.getElementById('modern-experience').value || 'Work experience',
-                    education: document.getElementById('modern-education').value || 'Education background',
-                    skills: document.getElementById('modern-skills').value || 'Key skills'
+
                 };
             } else if (template === 'executive') {
                 return {
                     name: document.getElementById('executive-name').value || 'Your Name',
-                    email: document.getElementById('executive-email').value || 'email@example.com',
-                    phone: document.getElementById('executive-phone').value || '(123) 456-7890',
-                    title: document.getElementById('executive-title').value || 'Professional Title',
-                    experience: document.getElementById('executive-experience').value || 'Executive experience',
-                    education: document.getElementById('executive-education').value || 'Advanced education',
-                    achievements: document.getElementById('executive-achievements').value || 'Key achievements',
-                    skills: document.getElementById('executive-skills').value || 'Leadership skills'
-                };
-            } else if (template === 'creative') {
-                return {
-                    name: document.getElementById('creative-name').value || 'Your Name',
-                    email: document.getElementById('creative-email').value || 'email@example.com',
-                    portfolio: document.getElementById('creative-portfolio').value || 'portfolio.com',
-                    bio: document.getElementById('creative-bio').value || 'Creative bio',
-                    projects: document.getElementById('creative-projects').value || 'Notable projects',
-                    skills: document.getElementById('creative-skills').value || 'Creative skills',
-                    tools: document.getElementById('creative-tools').value || 'Design tools'
-                };
-            }
-        }
+                    email: document.getElementById('executive-email').value || 'email@exampl
 
         function generateTemplateResume(template, data) {
             if (template === 'modern') {
