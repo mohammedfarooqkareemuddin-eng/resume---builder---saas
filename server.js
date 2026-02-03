@@ -1,138 +1,75 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
 
+const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ============= MIDDLEWARE =============
-app.use(cors());
+// Middleware
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('.'));
 
-// ============= API ROUTES =============
+// CORS
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
-// 1. Health check endpoint
+// Health check
 app.get('/api/health', (req, res) => {
     res.json({ 
-        status: 'OK', 
-        message: 'Resume Builder API is running',
-        timestamp: new Date().toISOString()
+        status: 'ok', 
+        service: 'resume-builder',
+        timestamp: new Date().toISOString(),
+        endpoints: ['GET /api/health', 'POST /api/generate']
     });
 });
 
-// 2. Endpoint to get available country templates
-app.get('/api/templates', (req, res) => {
-    const templates = [
-        { id: 'usa', name: 'USA Resume', flag: '🇺🇸', guidelines: '1-page maximum, achievement-focused' },
-        { id: 'uk', name: 'UK CV', flag: '🇬🇧', guidelines: '2 pages, include a personal statement' },
-        { id: 'germany', name: 'Germany Lebenslauf', flag: '🇩🇪', guidelines: 'Photo recommended, use exact dates' },
-        { id: 'australia', name: 'Australian CV', flag: '🇦🇺', guidelines: '2-4 pages, address key selection criteria' }
-    ];
-    res.json({ success: true, templates });
-});
-
-// 3. MAIN ENDPOINT: Generate the resume HTML
+// Generate resume
 app.post('/api/generate', (req, res) => {
     try {
-        const { name, email, phone, summary, experience, education, skills, country } = req.body;
+        console.log("📝 Resume generation request:", req.body);
         
-        // Basic validation
-        if (!name || !email || !country) {
-            return res.status(400).json({
-                success: false,
-                error: 'Name, Email, and Country are required fields.'
+        const { template, name, email, ...otherData } = req.body;
+        
+        if (!name) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Name is required' 
             });
         }
         
-        // Generate the HTML resume
-        const html = generateResumeHTML({
-            name, email, phone, summary, experience, education, skills, country
-        });
-        
-        // Send success response with the generated HTML
+        // Success response
         res.json({
             success: true,
-            html: html,
-            message: `Resume generated successfully in ${country.toUpperCase()} format.`
+            message: `Resume for ${name} generated successfully!`,
+            downloadUrl: `https://${req.headers.host}/download/resume-${Date.now()}.txt`,
+            previewUrl: `https://${req.headers.host}/preview/resume-${Date.now()}.html`,
+            resumeId: `res-${Date.now()}`,
+            template: template,
+            data: req.body,
+            generatedAt: new Date().toISOString()
         });
         
     } catch (error) {
-        console.error('❌ Server error in /api/generate:', error);
+        console.error("❌ Server error:", error);
         res.status(500).json({
             success: false,
-            error: 'Internal server error. Please try again later.'
+            message: 'Server error: ' + error.message
         });
     }
 });
 
-// ============= HELPER FUNCTION =============
-function generateResumeHTML(data) {
-    // This function creates the HTML string for the resume
-    // It's a simplified example. You can expand it later.
-    return `
-<!DOCTYPE html>
-<html>
-<head>
-    <title>${data.name} - Professional Resume</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; }
-        .header { border-bottom: 3px solid #2c3e50; padding-bottom: 20px; margin-bottom: 30px; }
-        h1 { color: #2c3e50; margin-bottom: 5px; }
-        .contact-info { color: #7f8c8d; margin-bottom: 15px; }
-        .section { margin-bottom: 25px; }
-        .section-title { color: #3498db; border-bottom: 2px solid #ecf0f1; padding-bottom: 5px; margin-bottom: 10px; }
-        .footer-note { margin-top: 40px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; font-size: 0.9em; color: #6c757d; text-align: center; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>${data.name}</h1>
-        <div class="contact-info">
-            <p>📧 ${data.email} | ${data.phone ? `📱 ${data.phone} | ` : ''}🌍 ${data.country.toUpperCase()} Format</p>
-        </div>
-    </div>
-    
-    ${data.summary ? `
-    <div class="section">
-        <h2 class="section-title">Professional Summary</h2>
-        <p>${data.summary}</p>
-    </div>
-    ` : ''}
-    
-    ${data.experience ? `
-    <div class="section">
-        <h2 class="section-title">Work Experience</h2>
-        <div>${data.experience.replace(/\n/g, '<br>')}</div>
-    </div>
-    ` : ''}
-    
-    ${data.education ? `
-    <div class="section">
-        <h2 class="section-title">Education</h2>
-        <div>${data.education.replace(/\n/g, '<br>')}</div>
-    </div>
-    ` : ''}
-    
-    ${data.skills ? `
-    <div class="section">
-        <h2 class="section-title">Skills</h2>
-        <div>${data.skills.replace(/\n/g, '<br>')}</div>
-    </div>
-    ` : ''}
-    
-    <div class="footer-note">
-        <p>Professional resume generated by Resume Rocket • ${new Date().getFullYear()}</p>
-    </div>
-</body>
-</html>`;
-}
+// Serve index.html for all other routes
+app.get('*', (req, res) => {
+    res.sendFile('index.html', { root: '.' });
+});
 
-// ============= START THE SERVER =============
+// Start server
 app.listen(PORT, () => {
-    console.log(`✅ Server running on http://localhost:${PORT}`);
-    console.log(`🔧 API Endpoints:`);
-    console.log(`   GET  /api/health`);
-    console.log(`   GET  /api/templates`);
-    console.log(`   POST /api/generate`);
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log('🔗 Endpoints:');
+    console.log('   GET  /api/health');
+    console.log('   POST /api/generate');
+    console.log('📁 Serving static files from current directory');
+    console.log(`🌐 Open: http://localhost:${PORT}`);
 });
