@@ -1,3 +1,4 @@
+
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,8 +9,8 @@ app.use(express.static('.'));
 
 // Health check
 app.get('/api/health', (req, res) => {
-    res.json({ 
-        status: 'ok', 
+    res.json({
+        status: 'ok',
         message: 'Resume Builder API is running',
         timestamp: new Date().toISOString()
     });
