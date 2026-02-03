@@ -982,73 +982,12 @@
         ← Back to Templates
     </button>
 
-    <!-- JavaScript -->
-    <script>
-        console.log("✅ Resume Rocket Template System Loaded!");
-        
-        let selectedTemplate = 'modern';
-
-        
-     
-
-        function generatePDF() {
-    console.log("📄 Generating resume via API for:", selectedTemplate);
-    const formData = getFormData(selectedTemplate);
-    
-    // Show loading
-    const button = document.querySelector('#downloadBtn') || event.target;
-    const originalText = button.textContent;
-    button.textContent = "⏳ Generating...";
-    button.disabled = true;
-    
-    // Call your backend API
-    fetch('/api/generate', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            template: selectedTemplate,
-            ...formData,
-            timestamp: new Date().toISOString()
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`API error: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data =>
-    .finally(() => {
-        // Restore button
-        button.textContent = originalText;
-        button.disabled = false;
-    });
-} showTemplateForm(template) {
-            console.log("📝 Showing form for:", template);
-            
-            // Hide all template forms
-            document.querySelectorAll('.template-form').forEach(form => {
-                form.style.display = 'none';
-            });
-            
-            // Show the selected template form
-            const selectedForm = document.getElementById(template + '-form');
-            if (selectedForm) {
-                selectedForm.style.display = 'block';
-                console.log("✅ Form displayed successfully");
-            } else {
-                console.error("❌ Form not found:", template + '-form');
-            }
-        }
-
-        function generatePDF() {
+    function generatePDF() {
     console.log("📄 Generating resume for:", selectedTemplate);
     const formData = getFormData(selectedTemplate);
     
     // Show loading
-    const button = document.querySelector('#downloadBtn');
+    const button = document.querySelector('#downloadBtn') || document.querySelector('button[onclick*="generatePDF"]');
     if (button) {
         const originalText = button.textContent;
         button.textContent = "⏳ Generating...";
@@ -1062,7 +1001,7 @@
     }
     
     try {
-        // Generate resume content
+        // Generate resume content - WITH CORRECT PARAMETERS
         const resumeContent = generateTemplateResume(selectedTemplate, formData);
         
         // Create and download the file
@@ -1090,28 +1029,6 @@
         }
     }
 }
-            
-            alert(`✅ ${selectedTemplate.charAt(0).toUpperCase() + selectedTemplate.slice(1)} Resume Downloaded!\nCheck your downloads folder.`);
-        }
-
-        function getFormData(template) {
-            if (template === 'modern') {
-                return {
-                    name: document.getElementById('modern-name').value || 'Your Name',
-                    email: document.getElementById('modern-email').value || 'email@example.com',
-                    phone: document.getElementById('modern-phone').value || '(123) 456-7890',
-
-                };
-            } else if (template === 'executive') {
-                return {
-                    name: document.getElementById('executive-name').value || 'Your Name',
-                    email: document.getElementById('executive-email').value || 'email@exampl
-
-        function generateTemplateResume(template, data) {
-            if (template === 'modern') {
-                return `MODERN PROFESSIONAL RESUME
-
-CONTACT INFORMATION
 Name: ${data.name}
 Email: ${data.email}
 Phone: ${data.phone}
