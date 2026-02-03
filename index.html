@@ -1019,43 +1019,7 @@
         }
         return response.json();
     })
-    .then(data => {
-        console.log("✅ API Response:", data);
-        
-        if (data.success) {
-            // Download the resume
-            const resumeContent = generateTemplateResume(selectedTemplate, formData);
-            const blob = new Blob([resumeContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${formData.name}-${selectedTemplate}-resume.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            
-            alert(`✅ ${data.message}\n\nDownloading your resume now!`);
-        } else {
-            alert(`❌ ${data.message || 'Failed to generate resume'}`);
-        }
-    })
-    .catch(error => {
-        console.error("❌ API Error:", error);
-        alert(`❌ Connection error: ${error.message}\n\nUsing offline mode...`);
-        
-        // Fallback to offline mode
-        const resumeContent = generateTemplateResume(selectedTemplate, formData);
-        const blob = new Blob([resumeContent], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${formData.name}-${selectedTemplate}-resume.txt`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        
-        alert('✅ Resume downloaded (offline mode)');
-    })
+    .then(data =>
     .finally(() => {
         // Restore button
         button.textContent = originalText;
@@ -1080,9 +1044,52 @@
         }
 
         function generatePDF() {
-            console.log("📄 Generating resume for:", selectedTemplate);
-            const formData = getFormData(selectedTemplate);
-            const resumeContent = generateTemplate
+    console.log("📄 Generating resume for:", selectedTemplate);
+    const formData = getFormData(selectedTemplate);
+    
+    // Show loading
+    const button = document.querySelector('#downloadBtn');
+    if (button) {
+        const originalText = button.textContent;
+        button.textContent = "⏳ Generating...";
+        button.disabled = true;
+        
+        // Reset button after 1.5 seconds
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+        }, 1500);
+    }
+    
+    try {
+        // Generate resume content
+        const resumeContent = generateTemplateResume(selectedTemplate, formData);
+        
+        // Create and download the file
+        const blob = new Blob([resumeContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${formData.name || 'resume'}-${selectedTemplate}-resume.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        // Success message
+        setTimeout(() => {
+            alert(`✅ ${formData.name || 'Your'} resume downloaded successfully!\nCheck your downloads folder.`);
+        }, 500);
+        
+    } catch (error) {
+        console.error("❌ Error generating resume:", error);
+        alert("❌ Error generating resume. Please check console for details.");
+        
+        if (button) {
+            button.textContent = "Try Again";
+            button.disabled = false;
+        }
+    }
+}
             
             alert(`✅ ${selectedTemplate.charAt(0).toUpperCase() + selectedTemplate.slice(1)} Resume Downloaded!\nCheck your downloads folder.`);
         }
