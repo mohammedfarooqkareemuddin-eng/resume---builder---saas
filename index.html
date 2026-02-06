@@ -970,12 +970,23 @@
             <textarea id="executive-education" class="form-textarea" placeholder="Education & Certifications"></textarea>
             <input type="text" id="executive-skills" class="form-input" placeholder="Leadership & Management Skills">
             
-            <button class="download-btn" onclick="generatePDF()" style="background: linear-gradient(135deg, #2c3e50, #3498db);">
-                📥 Download Executive Resume
+            
+     <button class="download-btn" onclick="generatePDF()">
             </button>
         </div>
     </div>
-
+<!-- 🟢 ADD GREEN TEST BUTTON HERE -->
+<div style="border: 3px solid green; padding: 20px; margin: 20px 0; background: #f0fff0; text-align: center;">
+    <h3 style="color: green; margin: 0 0 10px 0;">⚠️ CRITICAL TEST BUTTON</h3>
+    <p style="margin: 0 0 15px 0;">If this button works, your site can download files:</p>
+    
+    <button onclick="simpleDownloadTest()" 
+            style="padding: 15px 30px; background: green; color: white; 
+                   border: none; font-size: 18px; border-radius: 8px; cursor: pointer;
+                   font-weight: bold;">
+        🚨 CLICK TO TEST DOWNLOAD
+    </button>
+</div>
     <div id="creative-form" class="template-form" style="display: none;">
         <h2>🎨 Creative Portfolio Resume</h2>
         <div class="form-container">
