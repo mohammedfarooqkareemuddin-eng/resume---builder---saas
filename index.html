@@ -925,6 +925,21 @@
         </div>
     </footer>
 
+
+
+
+     
+<div style="border: 3px solid green; padding: 20px; margin: 20px; background: #f0fff0;">
+    <h2 style="color: green;">✅ GUARANTEED WORKING TEST BUTTON</h2>
+    <p>Click this button to test if downloads work:</p>
+    
+    <button onclick="simpleDownload()" 
+            style="padding: 15px 30px; background: green; color: white; 
+                   border: none; font-size: 18px; border-radius: 8px; cursor: pointer;">
+        🚀 TEST DOWNLOAD (Guaranteed Working)
+    </button>
+</div>
+
     <!-- Template Forms (Initially Hidden) -->
     <div id="modern-form" class="template-form" style="display: none;">
         <h2>🎯 Modern Professional Resume</h2>
@@ -1358,7 +1373,30 @@ function exportUserData() {
 // Add to console for testing
 console.log('🔧 Admin commands:');
 console.log('   - exportUserData(): Download user list as CSV');
-console.log('   - localStorage.getItem("resumerocket_emails"): View stored emails');
+
+   
+     console.log('   - localStorage.getItem("resumerocket_emails"): View stored emails');
+     // ADD THIS FUNCTION AT THE END OF YOUR SCRIPT
+function simpleDownload() {
+    console.log("✅ SIMPLE DOWNLOAD FUNCTION CALLED");
+    
+    // Simple resume text
+    const resumeText = "GUARANTEED WORKING TEST\nName: Test User\nEmail: test@example.com\nThis will definitely download!";
+    
+    // Create and download file
+    const blob = new Blob([resumeText], {type: 'text/plain'});
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'test-resume.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    alert("✅ SUCCESS! File downloaded as 'test-resume.txt'");
+    return true;
+}
 </script>
+     
 </body>
 </html>
