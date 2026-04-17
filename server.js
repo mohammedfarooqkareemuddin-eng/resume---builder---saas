@@ -134,5 +134,5 @@ app.listen(PORT, () => {
     console.log(`🔧 API Endpoints:`);
     console.log(`   GET  /api/health`);
     console.log(`   GET  /api/templates`);
-    console.log(`   POST /api/generate`);
+    console.log(`   POST api/generate`);
 });
