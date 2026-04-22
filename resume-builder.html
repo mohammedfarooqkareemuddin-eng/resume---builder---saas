@@ -14,7 +14,8 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             padding: 20px;
         }
         .container {
@@ -22,26 +23,33 @@
             margin: 0 auto;
             background: white;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         h2 {
             color: #2c3e50;
             margin-bottom: 20px;
             text-align: center;
+            font-size: 28px;
         }
         label {
             display: block;
             margin: 15px 0 5px;
-            font-weight: bold;
+            font-weight: 600;
             color: #333;
         }
         input, textarea, select {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
+            transition: border 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         textarea {
             height: 100px;
@@ -49,25 +57,31 @@
         }
         button {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        button:active {
+            transform: scale(0.98);
+        }
+        .note {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Create Your Professional Resume</h2>
+        <h2>🚀 Create Your Professional Resume</h2>
         
         <form id="resumeForm">
             <label for="fullName">Full Name *</label>
@@ -82,11 +96,11 @@
             <label for="country">Select Country Format *</label>
             <select id="country" required>
                 <option value="">Choose a country...</option>
-                <option value="USA">United States (Resume)</option>
-                <option value="UK">United Kingdom (CV)</option>
-                <option value="Canada">Canada (Resume)</option>
-                <option value="Germany">Germany (Lebenslauf)</option>
-                <option value="Australia">Australia (CV)</option>
+                <option value="USA">🇺🇸 United States (Resume)</option>
+                <option value="UK">🇬🇧 United Kingdom (CV)</option>
+                <option value="Canada">🇨🇦 Canada (Resume)</option>
+                <option value="Germany">🇩🇪 Germany (Lebenslauf)</option>
+                <option value="Australia">🇦🇺 Australia (CV)</option>
             </select>
 
             <label for="summary">Professional Summary</label>
@@ -101,55 +115,68 @@
             <label for="skills">Skills</label>
             <textarea id="skills" placeholder="JavaScript, React, Project Management, Communication..."></textarea>
 
-            <button type="button" onclick="generateResume()">Generate Resume</button>
+            <button type="button" onclick="generateResume()">Generate Resume PDF</button>
         </form>
+        <div class="note">✨ Your resume will download as a PDF instantly — no server required.</div>
     </div>
 
     <script>
         function generateResume() {
             // Get form values
-            const name = document.getElementById('fullName').value || 'Your Name';
-            const email = document.getElementById('email').value || 'email@example.com';
-            const phone = document.getElementById('phone').value || '';
+            const name = document.getElementById('fullName').value.trim() || 'Your Name';
+            const email = document.getElementById('email').value.trim() || 'email@example.com';
+            const phone = document.getElementById('phone').value.trim() || '';
             const country = document.getElementById('country').value || '';
-            const summary = document.getElementById('summary').value || '';
-            const experience = document.getElementById('experience').value || '';
-            const education = document.getElementById('education').value || '';
-            const skills = document.getElementById('skills').value || '';
+            const summary = document.getElementById('summary').value.trim() || 'No summary provided.';
+            const experience = document.getElementById('experience').value.trim() || 'No experience listed.';
+            const education = document.getElementById('education').value.trim() || 'No education listed.';
+            const skills = document.getElementById('skills').value.trim() || 'No skills listed.';
 
-            // Build resume HTML
+            // Build professional resume HTML
             const resumeHTML = `
-                <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 30px; background: white;">
-                    <h1 style="color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px;">${name}</h1>
-                    <p style="color: #555; margin-bottom: 20px;">
-                        ${email} ${phone ? ' | ' + phone : ''} ${country ? ' | ' + country + ' Format' : ''}
-                    </p>
-                    
-                    <div style="margin-bottom: 25px;">
-                        <h2 style="color: #3498db; border-bottom: 1px solid #ccc;">Professional Summary</h2>
-                        <p>${summary || 'No summary provided.'}</p>
+                <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; background: white; color: #1e293b;">
+                    <!-- Header -->
+                    <div style="border-bottom: 3px solid #667eea; padding-bottom: 20px; margin-bottom: 25px;">
+                        <h1 style="color: #1e293b; font-size: 32px; margin-bottom: 5px;">${name}</h1>
+                        <p style="color: #64748b; font-size: 16px; margin: 0;">
+                            ${email} ${phone ? ' • ' + phone : ''} ${country ? ' • ' + country + ' Format' : ''}
+                        </p>
                     </div>
                     
+                    <!-- Professional Summary -->
                     <div style="margin-bottom: 25px;">
-                        <h2 style="color: #3498db; border-bottom: 1px solid #ccc;">Experience</h2>
-                        <p style="white-space: pre-line;">${experience || 'No experience listed.'}</p>
+                        <h2 style="color: #667eea; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Professional Summary</h2>
+                        <p style="line-height: 1.6; color: #334155;">${summary}</p>
                     </div>
                     
+                    <!-- Experience -->
                     <div style="margin-bottom: 25px;">
-                        <h2 style="color: #3498db; border-bottom: 1px solid #ccc;">Education</h2>
-                        <p style="white-space: pre-line;">${education || 'No education listed.'}</p>
+                        <h2 style="color: #667eea; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Work Experience</h2>
+                        <p style="white-space: pre-line; line-height: 1.6; color: #334155;">${experience}</p>
                     </div>
                     
+                    <!-- Education -->
                     <div style="margin-bottom: 25px;">
-                        <h2 style="color: #3498db; border-bottom: 1px solid #ccc;">Skills</h2>
-                        <p>${skills || 'No skills listed.'}</p>
+                        <h2 style="color: #667eea; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Education</h2>
+                        <p style="white-space: pre-line; line-height: 1.6; color: #334155;">${education}</p>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div style="margin-bottom: 25px;">
+                        <h2 style="color: #667eea; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Skills</h2>
+                        <p style="line-height: 1.6; color: #334155;">${skills}</p>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #e2e8f0; text-align: center; color: #94a3b8; font-size: 12px;">
+                        Generated by ResumeRocket • ${new Date().toLocaleDateString()}
                     </div>
                 </div>
             `;
 
             // PDF options
             const opt = {
-                margin:        [0.5, 0.5, 0.5, 0.5],
+                margin:        [0.5, 0.5, 0.5, 0.5], // top, right, bottom, left (inches)
                 filename:      `${name.replace(/\s+/g, '_')}_Resume.pdf`,
                 image:         { type: 'jpeg', quality: 0.98 },
                 html2canvas:   { scale: 2, letterRendering: true },
