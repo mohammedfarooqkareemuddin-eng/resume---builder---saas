@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumeRocket - Professional Resume Builder</title>
+    <title>ResumeRocket - Build Your Professional Resume</title>
     <!-- html2pdf library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
             min-height: 100vh;
             padding: 20px;
         }
@@ -47,18 +43,15 @@
             transition: border 0.3s;
         }
         input:focus, textarea:focus, select:focus {
-            border-color: #667eea;
+            border-color: #4361ee;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
         }
-        textarea {
-            height: 100px;
-            resize: vertical;
-        }
+        textarea { height: 100px; resize: vertical; }
         button {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
             color: white;
             border: none;
             border-radius: 8px;
@@ -68,19 +61,40 @@
             margin-top: 25px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        button:active {
-            transform: scale(0.98);
-        }
+        button:active { transform: scale(0.98); }
         .note {
             text-align: center;
             margin-top: 15px;
             color: #666;
             font-size: 14px;
         }
+        .rocket-branding {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .rocket-branding i {
+            color: #4361ee;
+            font-size: 32px;
+        }
+        .rocket-branding h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+        .rocket-branding span { color: #4361ee; }
     </style>
+    <!-- Font Awesome for the rocket icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
+        <div class="rocket-branding">
+            <i class="fas fa-rocket"></i>
+            <h1>Resume<span>Rocket</span></h1>
+        </div>
         <h2>🚀 Create Your Professional Resume</h2>
         
         <form id="resumeForm">
@@ -122,7 +136,6 @@
 
     <script>
         function generateResume() {
-            // Get form values
             const name = document.getElementById('fullName').value.trim() || 'Your Name';
             const email = document.getElementById('email').value.trim() || 'email@example.com';
             const phone = document.getElementById('phone').value.trim() || '';
@@ -132,38 +145,47 @@
             const education = document.getElementById('education').value.trim() || 'No education listed.';
             const skills = document.getElementById('skills').value.trim() || 'No skills listed.';
 
-            // Build professional resume HTML
+            // Build the resume HTML with ResumeRocket purple branding
             const resumeHTML = `
                 <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; background: white; color: #1e293b;">
-                    <!-- Header -->
-                    <div style="border-bottom: 3px solid #667eea; padding-bottom: 20px; margin-bottom: 25px;">
+                    <!-- Purple Header -->
+                    <div style="background: linear-gradient(135deg, #4361ee, #3a0ca3); color: white; padding: 20px; border-radius: 10px 10px 0 0; margin-bottom: 30px; display: flex; align-items: center; gap: 15px;">
+                        <i class="fas fa-rocket" style="font-size: 32px;"></i>
+                        <div>
+                            <h1 style="margin:0; font-size: 28px;">ResumeRocket</h1>
+                            <p style="margin:0; opacity:0.9;">Professional Resume Builder</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Personal Info -->
+                    <div style="border-bottom: 3px solid #4361ee; padding-bottom: 20px; margin-bottom: 25px;">
                         <h1 style="color: #1e293b; font-size: 32px; margin-bottom: 5px;">${name}</h1>
                         <p style="color: #64748b; font-size: 16px; margin: 0;">
                             ${email} ${phone ? ' • ' + phone : ''} ${country ? ' • ' + country + ' Format' : ''}
                         </p>
                     </div>
                     
-                    <!-- Professional Summary -->
+                    <!-- Summary -->
                     <div style="margin-bottom: 25px;">
-                        <h2 style="color: #667eea; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Professional Summary</h2>
+                        <h2 style="color: #4361ee; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Professional Summary</h2>
                         <p style="line-height: 1.6; color: #334155;">${summary}</p>
                     </div>
                     
                     <!-- Experience -->
                     <div style="margin-bottom: 25px;">
-                        <h2 style="color: #667eea; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Work Experience</h2>
+                        <h2 style="color: #4361ee; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Work Experience</h2>
                         <p style="white-space: pre-line; line-height: 1.6; color: #334155;">${experience}</p>
                     </div>
                     
                     <!-- Education -->
                     <div style="margin-bottom: 25px;">
-                        <h2 style="color: #667eea; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Education</h2>
+                        <h2 style="color: #4361ee; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Education</h2>
                         <p style="white-space: pre-line; line-height: 1.6; color: #334155;">${education}</p>
                     </div>
                     
                     <!-- Skills -->
                     <div style="margin-bottom: 25px;">
-                        <h2 style="color: #667eea; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Skills</h2>
+                        <h2 style="color: #4361ee; font-size: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px;">Skills</h2>
                         <p style="line-height: 1.6; color: #334155;">${skills}</p>
                     </div>
                     
@@ -176,14 +198,14 @@
 
             // PDF options
             const opt = {
-                margin:        [0.5, 0.5, 0.5, 0.5], // top, right, bottom, left (inches)
+                margin:        [0.5, 0.5, 0.5, 0.5],
                 filename:      `${name.replace(/\s+/g, '_')}_Resume.pdf`,
                 image:         { type: 'jpeg', quality: 0.98 },
                 html2canvas:   { scale: 2, letterRendering: true },
                 jsPDF:         { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
-            // Generate and download PDF
+            // Generate and download
             html2pdf().set(opt).from(resumeHTML).save();
         }
     </script>
