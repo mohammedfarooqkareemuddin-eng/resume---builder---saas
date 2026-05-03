@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResumeRocket - Professional Resume Builder</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#4361ee,#3a0ca3);min-height:100vh;padding:20px}
+.container{max-width:800px;margin:0 auto;background:white;padding:30px;border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,0.2)}
+.rocket-branding{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:20px}
+.rocket-branding i{color:#4361ee;font-size:32px}
+.rocket-branding h1{font-size:24px;font-weight:700;color:#333}
+.rocket-branding span{color:#4361ee}
+h2{color:#2c3e50;margin-bottom:20px;text-align:center;font-size:28px}
+label{display:block;margin:15px 0 5px;font-weight:600;color:#333}
+input,textarea,select{width:100%;padding:14px;border:1px solid #ddd;border-radius:8px;font-size:16px}
+input:focus,textarea:focus,select:focus{border-color:#4361ee;outline:none}
+textarea{height:100px;resize:vertical}
+button{width:100%;padding:16px;background:linear-gradient(135deg,#4361ee,#3a0ca3);color:white;border:none;border-radius:8px;font-size:1.2rem;font-weight:bold;cursor:pointer;margin-top:25px}
+.note{text-align:center;margin-top:15px;color:#666;font-size:14px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="rocket-branding">
+<i class="fas fa-rocket"></i>
+<h1>Resume<span>Rocket</span></h1>
+</div>
+<h2>🚀 Create Your Professional Resume</h2>
+<label for="fullName">Full Name *</label>
+<input type="text" id="fullName" placeholder="John Doe" required>
+<label for="email">Email *</label>
+<input type="email" id="email" placeholder="john@example.com" required>
+<label for="phone">Phone</label>
+<input type="tel" id="phone" placeholder="+1 234 567 8900">
+<label for="country">Select Country Format *</label>
+<select id="country" required>
+<option value="">Choose a country...</option>
+<option value="USA">🇺🇸 United States (Resume)</option>
+<option value="UK">🇬🇧 United Kingdom (CV)</option>
+<option value="Canada">🇨🇦 Canada (Resume)</option>
+<option value="Germany">🇩🇪 Germany (Lebenslauf)</option>
+<option value="Australia">🇦🇺 Australia (CV)</option>
+</select>
+<label for="summary">Professional Summary</label>
+<textarea id="summary" placeholder="Brief overview of your experience and goals..."></textarea>
+<label for="experience">Work Experience</label>
+<textarea id="experience" placeholder="Company Name | Job Title | Dates&#10;Describe your responsibilities..."></textarea>
+<label for="education">Education</label>
+<textarea id="education" placeholder="Degree | Institution | Year&#10;Include relevant coursework..."></textarea>
+<label for="skills">Skills</label>
+<textarea id="skills" placeholder="JavaScript, React, Project Management, Communication..."></textarea>
+<button onclick="gen()">Generate Resume PDF</button>
+<div class="note">✨ Your resume will download as a PDF instantly — no server required.</div>
+</div>
+<script>
+function gen(){
+var a=document.getElementById('fullName').value||'Your Name';
+var b=document.getElementById('email').value||'';
+var c=document.getElementById('phone').value||'';
+var d=document.getElementById('country').value||'';
+var e=document.getElementById('summary').value||'';
+var f=document.getElementById('experience').value||'';
+var g=document.getElementById('education').value||'';
+var h=document.getElementById('skills').value||'';
+
+const { jsPDF } = window.jspdf;
+var doc = new jsPDF();
+var y = 20;
+doc.setFontSize(22);doc.setTextColor(67,97,238);doc.text('ResumeRocket',105,y,{align:'center'});
+y+=8;doc.setFontSize(12);doc.setTextColor(100,100,100);doc.text('Professional Resume Builder',105,y,{align:'center'});
+y+=15;doc.setFontSize(18);doc.setTextColor(0,0,0);doc.text(a,20,y);
+y+=10;doc.setFontSize(11);doc.setTextColor(60,60,60);doc.text('Email: '+b,20,y);y+=7;
+if(c){doc.text('Phone: '+c,20,y);y+=7;}
+if(d){doc.text('Country: '+d,20,y);y+=7;}
+y+=8;doc.setFontSize(14);doc.setTextColor(67,97,238);doc.text('Professional Summary',20,y);y+=7;
+doc.setFontSize(11);doc.setTextColor(0,0,0);var sl=doc.splitTextToSize(e,170);doc.text(sl,20,y);y+=sl.length*7+5;
+doc.setFontSize(14);doc.setTextColor(67,97,238);doc.text('Work Experience',20,y);y+=7;
+doc.setFontSize(11);doc.setTextColor(0,0,0);var el=doc.splitTextToSize(f,170);doc.text(el,20,y);y+=el.length*7+5;
+doc.setFontSize(14);doc.setTextColor(67,97,238);doc.text('Education',20,y);y+=7;
+doc.setFontSize(11);doc.setTextColor(0,0,0);var edl=doc.splitTextToSize(g,170);doc.text(edl,20,y);y+=edl.length*7+5;
+doc.setFontSize(14);doc.setTextColor(67,97,238);doc.text('Skills',20,y);y+=7;
+doc.setFontSize(11);doc.setTextColor(0,0,0);var skl=doc.splitTextToSize(h,170);doc.text(skl,20,y);
+doc.save(a.replace(/\s+/g,'_')+'_Resume.pdf');
+}
+</script>
+</body>
+</html>
