@@ -1,0 +1,28 @@
+{
+  "name": "ResumeRocket - Professional Resume Builder",
+  "short_name": "ResumeRocket",
+  "description": "Create professional resumes in minutes. Generate country-specific resumes & CVs instantly. Build your dream career with ResumeRocket.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#4361ee",
+  "theme_color": "#4361ee",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/icon0.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "education", "productivity"],
+  "prefer_related_applications": false
+}
