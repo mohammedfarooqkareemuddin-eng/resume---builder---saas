@@ -69,6 +69,7 @@
         .nav-links {
             display: flex;
             gap: 30px;
+            flex-wrap: wrap;
         }
         
         .nav-links a {
@@ -241,6 +242,66 @@
             max-width: 100%;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ✅ NEW: How It Works Section (For AdSense Approval) */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: #f0f4f8;
+        }
+
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .how-item {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .how-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .how-item .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .how-item h4 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .how-item p {
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        .why-list {
+            list-style: none;
+            padding: 0;
+            color: #4a5568;
+            line-height: 2.2;
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+
+        .why-list li {
+            padding: 4px 0;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .why-list li:last-child {
+            border-bottom: none;
         }
         
         /* Templates Section */
@@ -642,6 +703,7 @@
             
             .nav-links {
                 gap: 15px;
+                justify-content: center;
             }
             
             .hero-text h2 {
@@ -651,6 +713,16 @@
             .hero-buttons, .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .how-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .how-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -665,11 +737,11 @@
                     <h1>Resume<span>Rocket</span></h1>
                 </div>
                 <div class="nav-links">
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                     <a href="#" onclick="document.getElementById('templates-section').scrollIntoView({behavior: 'smooth'})">Templates</a>
-                    <a href="#">Examples</a>
-                    <a href="#">Pricing</a>
-                    <a href="#">Blog</a>
+                    <a href="/blog.html">Blog</a>
+                    <a href="/about.html">About</a>
+                    <a href="/contact.html">Contact</a>
                 </div>
                 <div class="auth-buttons">
                     <button class="btn btn-outline" onclick="openAuthModal('login')">Log In</button>
@@ -724,6 +796,47 @@
                     <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Professional lady">
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ✅ NEW: How It Works Section (For AdSense Approval) -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">🚀 How ResumeRocket Works</h2>
+            <p class="section-subtitle">ResumeRocket is a <strong>free, ATS-friendly resume builder</strong> designed for professionals, fresh graduates, and career-changers who need to create a standout resume quickly.</p>
+
+            <div class="how-grid">
+                <div class="how-item">
+                    <span class="icon">📝</span>
+                    <h4>1. Tell Us About You</h4>
+                    <p>Describe your experience, skills, and achievements. Our AI understands your background.</p>
+                </div>
+                <div class="how-item">
+                    <span class="icon">🎨</span>
+                    <h4>2. Choose a Template</h4>
+                    <p>Pick from Modern, Executive, Creative, or Minimalist designs that suit your industry.</p>
+                </div>
+                <div class="how-item">
+                    <span class="icon">⚡</span>
+                    <h4>3. Customize Instantly</h4>
+                    <p>Our AI formats your content perfectly for ATS systems and hiring managers.</p>
+                </div>
+                <div class="how-item">
+                    <span class="icon">📥</span>
+                    <h4>4. Download & Apply</h4>
+                    <p>Get your resume as a PDF, Word document, or plain text – ready to send to employers.</p>
+                </div>
+            </div>
+
+            <h3 style="color:#1e3c72; margin-top:40px; text-align:center;">✨ Why Choose ResumeRocket?</h3>
+            <ul class="why-list">
+                <li>✅ <strong>100% Free</strong> – No hidden charges, no credit card required, no sign-up needed</li>
+                <li>✅ <strong>ATS-Optimized</strong> – Passes Applicant Tracking Systems used by top companies like Google, Amazon, and Microsoft</li>
+                <li>✅ <strong>Expert Tips Built-In</strong> – Our templates and suggestions are crafted with insights from professional recruiters</li>
+                <li>✅ <strong>Multiple Formats</strong> – Download as PDF, Word, or plain text for any application requirement</li>
+                <li>✅ <strong>Privacy First</strong> – We don't store or share your personal data – your information stays yours</li>
+                <li>✅ <strong>Used by Professionals in USA, UK, Canada, India & Beyond</strong> 🌍</li>
+            </ul>
         </div>
     </section>
 
@@ -918,7 +1031,7 @@
                 <div class="footer-column">
                     <h3>Resources</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="/blog.html">Blog</a></li>
                         <li><a href="#">Career Advice</a></li>
                         <li><a href="#">Resume Tips</a></li>
                         <li><a href="#">Interview Tips</a></li>
@@ -931,7 +1044,7 @@
                     <ul class="footer-links">
                         <li><a href="/about.html">About Us</a></li>
                         <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
                         <li><a href="/privacy-policy.html">Privacy Policy</a></li>
                         <li><a href="/terms-of-service.html">Terms of Service</a></li>
                     </ul>
@@ -939,7 +1052,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 ResumeRocket. All rights reserved.</p>
+                <p>&copy; 2026 ResumeRocket. All rights reserved.</p>
             </div>
         </div>
     </footer>
