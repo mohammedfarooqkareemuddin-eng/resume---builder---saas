@@ -178,28 +178,6 @@
             border: 2px solid white;
         }
         
-        .stats {
-            display: flex;
-            gap: 30px;
-            margin-top: 40px;
-            justify-content: center;
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-        
         /* Motivational Section */
         .motivational {
             padding: 80px 0;
@@ -287,28 +265,52 @@
             font-size: 0.95rem;
         }
 
-        .why-list {
-            list-style: none;
-            padding: 0;
+        /* NEW: Article / Guide Section for AdSense */
+        .guide-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .guide-content {
+            max-width: 850px;
+            margin: 0 auto;
+            color: #333;
+        }
+
+        .guide-content h1 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .guide-content h2 {
+            font-size: 1.8rem;
+            color: #2a5298;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        .guide-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
             color: #4a5568;
-            line-height: 2.2;
-            max-width: 700px;
-            margin: 20px auto 0;
         }
 
-        .why-list li {
-            padding: 4px 0;
-            border-bottom: 1px solid #eef2f7;
-        }
-
-        .why-list li:last-child {
-            border-bottom: none;
+        .guide-content ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            font-size: 1.1rem;
+            color: #4a5568;
+            line-height: 1.8;
         }
         
         /* Templates Section */
         .templates {
             padding: 80px 0;
             text-align: center;
+            background: #f0f4f8;
         }
         
         .section-title {
@@ -386,53 +388,6 @@
             margin-bottom: 20px;
         }
         
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background-color: #f0f4f8;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #4361ee, #3a0ca3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 28px;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
         /* Video Section */
         .video-section {
             padding: 60px 0;
@@ -456,59 +411,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background-color: #f9f9f9;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #4361ee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .author-info h4 {
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #666;
-            font-size: 14px;
         }
         
         /* CTA Section */
@@ -539,7 +441,7 @@
             margin-top: 30px;
         }
         
-        /* ✅ NEW: FAQ Section */
+        /* FAQ Section */
         .faq-section {
             padding: 60px 0;
             background-color: #f0f4f8;
@@ -713,10 +615,6 @@
             .hero-text, .motivational-image {
                 text-align: center;
             }
-            
-            .stats {
-                justify-content: center;
-            }
         }
         
         @media (max-width: 768px) {
@@ -790,35 +688,6 @@
                 <div class="hero-image">
                     <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Professional woman working">
                 </div>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">7,664,244</div>
-                        <div class="stat-label">Resumes Created</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">86%</div>
-                        <div class="stat-label">Positive Ratings</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Support</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Motivational Section -->
-    <section class="motivational">
-        <div class="container">
-            <div class="motivational-content">
-                <div class="quote-box">
-                    <p class="quote">"The future depends on what you do today. Don't wait for the right opportunity, create it with a resume that showcases your true potential."</p>
-                    <p class="quote-author">- ResumeRocket Team</p>
-                </div>
-                <div class="motivational-image">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Professional lady">
-                </div>
             </div>
         </div>
     </section>
@@ -851,16 +720,34 @@
                     <p>Get your resume as a PDF, Word document, or plain text – ready to send to employers.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <h3 style="color:#1e3c72; margin-top:40px; text-align:center;">✨ Why Choose ResumeRocket?</h3>
-            <ul class="why-list">
-                <li>✅ <strong>100% Free</strong> – No hidden charges, no credit card required, no sign-up needed</li>
-                <li>✅ <strong>ATS-Optimized</strong> – Passes Applicant Tracking Systems used by top companies like Google, Amazon, and Microsoft</li>
-                <li>✅ <strong>Expert Tips Built-In</strong> – Our templates and suggestions are crafted with insights from professional recruiters</li>
-                <li>✅ <strong>Multiple Formats</strong> – Download as PDF, Word, or plain text for any application requirement</li>
-                <li>✅ <strong>Privacy First</strong> – We don't store or share your personal data – your information stays yours</li>
-                <li>✅ <strong>Used by Professionals in USA, UK, Canada, India & Beyond</strong> 🌍</li>
-            </ul>
+    <!-- NEW: Static Text Guide Section (For AdSense Approval) -->
+    <section class="guide-section">
+        <div class="container">
+            <div class="guide-content">
+                <h1>The Ultimate Guide to Building a Professional Resume in 2026</h1>
+                <p>Creating a resume that stands out in today's competitive job market requires more than just listing your past jobs. It requires strategy, formatting expertise, and a deep understanding of what recruiters and automated systems are looking for. Whether you are a fresh graduate or a seasoned executive, this guide will walk you through the essential steps to build a resume that gets results.</p>
+                
+                <h2>1. Start with a Powerful Professional Summary</h2>
+                <p>Your professional summary is the first thing a hiring manager reads. It should be a concise, 3-4 sentence paragraph that highlights who you are, what you bring to the table, and what your career goals are. Avoid generic statements like "hardworking team player." Instead, focus on specific achievements. For example: "Detail-oriented Data Analyst with 4+ years of experience in Python and SQL. Spearheaded a data migration project that reduced processing time by 30% and saved the company $50,000 annually."</p>
+                
+                <h2>2. Highlight Achievements, Not Just Duties</h2>
+                <p>One of the most common resume mistakes is listing daily duties instead of measurable achievements. Recruiters already know what a "Marketing Manager" or "Software Engineer" does. They want to know how well you did it. Use the XYZ formula: "Accomplished [X], as measured by [Y], by doing [Z]." For instance, instead of writing "Responsible for social media," write "Grew Instagram following by 150% (X) in six months (Y) by implementing a data-driven content calendar (Z)."</p>
+                
+                <h2>3. Optimize for Applicant Tracking Systems (ATS)</h2>
+                <p>Over 75% of resumes are rejected by Applicant Tracking Systems before a human ever reads them. These systems scan for specific keywords, clean formatting, and standard section headers. To beat the ATS, ensure your resume uses a clean, single-column layout. Avoid complex tables, graphics, or non-standard fonts. Most importantly, tailor your resume for every job by incorporating the exact keywords found in the job description. ResumeRocket's builder is specifically designed to output clean, structured text that supports readable formatting for common ATS parsers.</p>
+                
+                <h2>4. Showcase Your Technical Skills</h2>
+                <p>In a rapidly evolving job market, your technical skills are your currency. Create a dedicated "Skills" section and group them logically. For example, a developer might list "Languages: JavaScript, Python, Java" and "Frameworks: React, Node.js, Django." For non-technical roles, list industry-specific software like Salesforce, HubSpot, or advanced Excel functions. Always ensure the skills you list are backed up by real experience in your work history.</p>
+                
+                <h2>5. The Importance of Tailoring Your Resume</h2>
+                <p>Sending the exact same resume to 100 different jobs is the fastest way to get ignored. Hiring managers can spot a generic resume instantly. Tailoring doesn't mean rewriting your entire resume; it means adjusting your professional summary, reordering your skills, and tweaking your bullet points to align with the specific requirements of each job application. This small effort can increase your interview callback rate significantly.</p>
+                
+                <h2>6. Proofread and Format for Human Eyes</h2>
+                <p>After passing the ATS, your resume must impress a human. Keep the design clean and professional. Use standard fonts like Arial, Calibri, or Helvetica at 10-12pt. Ensure there is plenty of white space so the document doesn't look cluttered. Finally, proofread your resume multiple times. A single typo can ruin an otherwise perfect application and signal a lack of attention to detail. Download your resume in a clean PDF format to preserve your formatting across all devices.</p>
+            </div>
         </div>
     </section>
 
@@ -868,7 +755,7 @@
     <section class="templates" id="templates-section">
         <div class="container">
             <h2 class="section-title">Professional Resume Templates</h2>
-            <p class="section-subtitle">Choose from our collection of ATS-friendly templates designed to get you noticed by recruiters and hiring managers.</p>
+            <p class="section-subtitle">Choose from our collection of clean, structured templates designed to get you noticed by recruiters and hiring managers.</p>
             
             <div class="template-grid">
                 <div class="template-card">
@@ -918,48 +805,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">Why Choose ResumeRocket?</h2>
-            <p class="section-subtitle">Our platform offers everything you need to create a standout resume that gets results.</p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3>Easy to Use</h3>
-                    <p>Our intuitive builder makes creating a professional resume simple, even if you're not tech-savvy.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3>ATS Optimized</h3>
-                    <p>All our templates are designed to pass through Applicant Tracking Systems used by employers.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <h3>Multiple Formats</h3>
-                    <p>Download your resume in PDF, Word, or plain text formats for any application requirement.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h3>Secure & Private</h3>
-                    <p>Your data is protected with enterprise-grade security and we never share your information.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Video Section -->
     <section class="video-section">
         <div class="container">
@@ -971,50 +816,7 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Success Stories</h2>
-            <p class="section-subtitle">Hear from professionals who landed their dream jobs with ResumeRocket.</p>
-            
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"I was struggling to get interviews despite having the right qualifications. After using ResumeRocket, I got 3 interview calls in one week!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SJ</div>
-                        <div class="author-info">
-                            <h4>Sarah Johnson</h4>
-                            <p>Marketing Manager</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"The templates are not only beautiful but also ATS-friendly. I landed my dream job at a tech giant thanks to my new resume."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">MR</div>
-                        <div class="author-info">
-                            <h4>Michael Rodriguez</h4>
-                            <p>Software Engineer</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"As a recent graduate, I needed a resume that would stand out. ResumeRocket helped me create a professional CV that got me multiple offers."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">EC</div>
-                        <div class="author-info">
-                            <h4>Emily Chen</h4>
-                            <p>Graphic Designer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ✅ NEW: FAQ Section -->
+    <!-- FAQ Section -->
     <section class="faq-section">
         <div class="container">
             <h2 style="text-align:center; font-size:2rem; color:#1e3c72; margin-bottom:40px;">❓ Frequently Asked Questions</h2>
@@ -1026,7 +828,7 @@
                 </div>
                 <div class="faq-item">
                     <h4>2. Are the resume templates ATS-friendly?</h4>
-                    <p>Yes! All our templates are designed to pass through Applicant Tracking Systems (ATS) used by top companies like Google, Amazon, and Microsoft.</p>
+                    <p>Yes. All our templates are designed with clean, structured formatting that supports readable parsing by common Applicant Tracking Systems (ATS).</p>
                 </div>
                 <div class="faq-item">
                     <h4>3. Can I download my resume in multiple formats?</h4>
@@ -1046,7 +848,7 @@
                 </div>
                 <div class="faq-item">
                     <h4>7. Is my data safe with ResumeRocket?</h4>
-                    <p>Absolutely. We do not store or share your personal data. Your privacy is our top priority.</p>
+                    <p>Absolutely. We do not store or share your personal data. Your resume data is processed locally in your browser. Your privacy is our top priority.</p>
                 </div>
             </div>
         </div>
@@ -1056,7 +858,7 @@
     <section class="cta">
         <div class="container">
             <h2>Ready to Launch Your Career?</h2>
-            <p>Join millions of professionals who have transformed their job search with ResumeRocket. Create your professional resume today.</p>
+            <p>Join professionals who have transformed their job search with ResumeRocket. Create your professional resume today.</p>
             <div class="cta-buttons">
                 <button class="btn btn-white" onclick="startResumeBuilder('modern')">Create Your Resume</button>
                 <button class="btn btn-transparent" onclick="document.getElementById('templates-section').scrollIntoView({behavior: 'smooth'})">View Templates</button>
@@ -1086,7 +888,6 @@
                         <li><a href="#" onclick="document.getElementById('templates-section').scrollIntoView({behavior: 'smooth'})">Templates</a></li>
                         <li><a href="#">Cover Letters</a></li>
                         <li><a href="#">Examples</a></li>
-                        <li><a href="#">Pricing</a></li>
                     </ul>
                 </div>
                 
